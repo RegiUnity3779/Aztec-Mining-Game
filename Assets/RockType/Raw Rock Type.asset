@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a30760024b2ac4782d5e437f09010d, type: 3}
+  m_Name: Raw Rock Type
+  m_EditorClassIdentifier: 
+  rockName: Raw Rock
+  rockColour: {fileID: 2100000, guid: 403359eb8923878469ac1ae0d7c69885, type: 2}
+  spawnChance: 80
+  spawnItem:
+  - {fileID: 990439627886308983, guid: 028b708fc12404247bd6906ac523a7db, type: 3}
+  - {fileID: 5811861476960628644, guid: 443c6dfe59ece30419ae403e4e15dd3f, type: 3}
+  - {fileID: 2496075354032821882, guid: ef02a8dca6dea414bacf07b6fd971760, type: 3}
+  spawnProability: 32000000230000000f000000
