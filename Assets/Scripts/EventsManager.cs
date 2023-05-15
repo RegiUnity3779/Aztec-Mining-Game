@@ -12,4 +12,7 @@ public static class EventsManager
     public static Action EquipItem;
     public static Action UnEquipItem;
     public static Action<GameObject> GroundObjectRemoved;
+    public static Action DownStairs;
+    public static Action<GameObject> FindPlayerInteractor;
+    public static Action<GameObject> ItemInScene;
 }

@@ -15,6 +15,8 @@ public class FloorManager : MonoBehaviour
     public GameObject stairsUp;
     public GameObject stairsDown;
     public GameObject player;
+    private GameObject curPlayer;
+    private GameObject curPlayerInteractor;
 
     public int[] groundTilesProbability;
     public int[] landTilesProbability;
@@ -29,20 +31,41 @@ public class FloorManager : MonoBehaviour
     {
         EventsManager.GroundObjectRemoved += GroundObjectRemoved;
         EventsManager.StairsRevealed += StairsRevealed;
+        EventsManager.DownStairs += GoDownStairs;
+        EventsManager.ItemInScene += ItemInScene;
     }
 
     private void OnDisable()
     {
         EventsManager.GroundObjectRemoved -= GroundObjectRemoved;
         EventsManager.StairsRevealed -= StairsRevealed;
+        EventsManager.DownStairs -= GoDownStairs;
+        EventsManager.ItemInScene -= ItemInScene;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        GenerateFloor();
+        NewFloor();
 
 
+
+    }
+
+    public void GoDownStairs()
+    {
+        NewFloor();
+        if(curPlayer == null)
+        {
+            NewFloor();
+        }
+    }
+
+    public void NewFloor()
+    {
+        
+            DestroyFloor();
+            GenerateFloor();
 
     }
     public void GenerateFloor()
@@ -51,34 +74,43 @@ public class FloorManager : MonoBehaviour
         GenerateStairs();
         GeneratePlayer();
         GroundObjectLayoutProbability();
+        FindPlayer();
+           
+        
+        
     }
+    void ItemInScene(GameObject obj)
+    {
+        floorObjects.Add(obj);
+    }
+    void FindPlayer()
+    {
+        curPlayerInteractor = curPlayer.GetComponentInChildren<Interaction>().gameObject;
+        EventsManager.FindPlayerInteractor(curPlayerInteractor);
+        
 
+    }
     public void DestroyFloor()
     {
-        for(int i =0; i < floorObjects.Count; i++)
-        {   
-            Destroy(floorObjects[i].gameObject);
-            floorObjects.Remove(floorObjects[i]);
-            
-            
+        
+
+        foreach (GameObject obj in floorObjects)
+        {
+            Destroy(obj);
+        }
+        foreach (GameObject obj in stairSite)
+        {
+            Destroy(obj);
+        }
+        foreach (GameObject obj in floorLayout)
+        {
+            Destroy(obj);
         }
 
-        //foreach(GameObject obj in floorObjects)
-        //{
-        //    floorObjects.Remove(obj);
-        //    Destroy(obj);
-        //}
-        //foreach (GameObject obj in stairSite)
-        //{
-        //    stairSite.Remove(obj);
-        //    Destroy(obj);
-        //}
-        //foreach(GameObject obj in floorLayout)
-        //{
-        //    floorLayout.Remove(obj);
-        //    Destroy(obj);
-        //}
-        
+        floorObjects.Clear();
+        stairSite.Clear();
+        floorLayout.Clear();
+        walkableFloor.Clear();
 
     }
 
@@ -120,7 +152,7 @@ public class FloorManager : MonoBehaviour
     }
     void BoundaryLayout(int x, int z)
     {
-        floorLayout.Add(Instantiate(groundTiles[1], new Vector3(x, -groundTiles[1].transform.localScale.y / 2, z), Quaternion.identity));
+        floorLayout.Add(Instantiate(groundTiles[1], new Vector3(x, groundTiles[1].transform.localScale.y / 2, z), Quaternion.identity));
         return;
     }
     bool GroundLayoutCompare(int x, int z)
@@ -189,7 +221,7 @@ public class FloorManager : MonoBehaviour
 
                 if (a < 0)
                 {
-                floorLayout.Add(Instantiate(groundTiles[i], new Vector3(x, -groundTiles[i].transform.localScale.y / 2, z), Quaternion.identity));
+                floorLayout.Add(Instantiate(groundTiles[i], new Vector3(x, groundTiles[i].transform.localScale.y / 2, z), Quaternion.identity));
                     return;
                 }
 
@@ -208,7 +240,7 @@ public class FloorManager : MonoBehaviour
 
             if (a < 0)
             {
-                floorLayout.Add(Instantiate(groundTiles[i], new Vector3(x, -groundTiles[i].transform.localScale.y / 2, z), Quaternion.identity));
+                floorLayout.Add(Instantiate(groundTiles[i], new Vector3(x, groundTiles[i].transform.localScale.y / 2, z), Quaternion.identity));
                 return;
             }
 
@@ -250,49 +282,66 @@ public class FloorManager : MonoBehaviour
             {
                 if (hit.collider != null)
                 {
-                    if (hit.collider.gameObject.CompareTag("Ground"))
+                foreach(GameObject obj in walkableFloor)
+                {
+                    if (hit.collider.gameObject == obj)
                     {
-                       floorObjects.Add(Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y / 2) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity));
+                        curPlayer = Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y / 2) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity);
+                        floorObjects.Add(curPlayer);
                         return;
+                    }
                     }
                 }
             }
 
             if (Physics.Raycast(stairTileLocations[0], -transform.forward, out hit, 0.5f))
             {
-                if (hit.collider != null)
+            if (hit.collider != null)
+            {
+                foreach (GameObject obj in walkableFloor)
                 {
-                    if (hit.collider.gameObject.CompareTag("Ground"))
+                    if (hit.collider.gameObject == obj)
                     {
-                    floorObjects.Add(Instantiate(player, hit.transform.position + new Vector3(0,((player.transform.localScale.y / 2)+ (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity));
+                        curPlayer = Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y / 2) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity);
+                        floorObjects.Add(curPlayer);
                         return;
                     }
                 }
             }
+        }
 
             if (Physics.Raycast(stairTileLocations[0], transform.right, out hit, 0.5f))
             {
-                if (hit.collider != null)
+            if (hit.collider != null)
+            {
+                foreach (GameObject obj in walkableFloor)
                 {
-                    if (hit.collider.gameObject.CompareTag("Ground"))
+                    if (hit.collider.gameObject == obj)
                     {
-                    floorObjects.Add(Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y / 2) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity));
+                        curPlayer = Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y / 2) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity);
+                        floorObjects.Add(curPlayer);
+                        return;
+                    }
+                }
+            }
+        }
+
+            if (Physics.Raycast(stairTileLocations[0], -transform.right, out hit, 0.5f))
+            {
+            if (hit.collider != null)
+            {
+                foreach (GameObject obj in walkableFloor)
+                {
+                    if (hit.collider.gameObject == obj)
+                    {
+                        curPlayer = Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y / 2) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity);
+                        floorObjects.Add(curPlayer);
                         return;
                     }
                 }
             }
 
-            if (Physics.Raycast(stairTileLocations[0], -transform.right, out hit, 0.5f))
-            {
-                if (hit.collider != null)
-                {
-                    if (hit.collider.gameObject.CompareTag("Ground"))
-                    {
-                    floorObjects.Add(Instantiate(player, hit.transform.position + new Vector3(0,((player.transform.localScale.y / 2)+ (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity));
-                        return;
-                    }
-                }
-            }
+        }
      
 
 
@@ -301,28 +350,26 @@ public class FloorManager : MonoBehaviour
     void GroundObjectLayoutProbability()
 
     { foreach (GameObject tile in walkableFloor)
-        {   
-                    
-            if (tile.tag == "Ground")
+        {
+            if (tile.transform.position.x == curPlayer.transform.position.x && tile.transform.position.z == curPlayer.transform.position.z)
             {
-            int a = Random.Range(0, 100);
-           
                 
+            }
+
+            else
+            {
+                int a = Random.Range(0, 100);
+
+
                 a -= groundObjectSpawning;
 
                 if (a < 0)
                 {
-                    if(tile.transform.position.x == player.transform.position.x && tile.transform.position.z == player.transform.position.z) 
-                    {
-                    }
-                    else
-                    {
-                        GroundObjectProbability(tile);
-                    }
-                    
-                }
+                    GroundObjectProbability(tile);
 
+                }
             }
+            
         }
     }
     void GroundObjectProbability(GameObject tile)

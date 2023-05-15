@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3551486507447733783}
   - component: {fileID: 8671561189978924636}
   - component: {fileID: 2496075354032821882}
-  - component: {fileID: -8092752438216795481}
+  - component: {fileID: -855491573252567118}
   m_Layer: 0
   m_Name: Silver Ore
   m_TagString: Item
@@ -112,15 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 0f1fbcd38a3344e449cc3bad279d3497, type: 2}
-  itemObject: {fileID: 4217142573535559927}
-  itemSprite: {fileID: 30197155, guid: 1c1813443d0579a4a945d425803ae00c, type: 3}
-  itemName: Silver Ore
-  itemDescription: 
-  type: 0
-  value: 40
-  canStack: 1
-  maxStackAmount: 99
---- !u!54 &-8092752438216795481
+--- !u!54 &-855491573252567118
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

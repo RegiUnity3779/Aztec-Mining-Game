@@ -20,6 +20,7 @@ public class Inventory : MonoBehaviour
         EventsManager.AddToInventory += AddItemInventory;
         EventsManager.EquipItem += EquipButtons;
         EventsManager.UnEquipItem += EquipButtons;
+        EventsManager.FindPlayerInteractor += FindPlayer;
     }
 
     private void OnDisable()
@@ -27,13 +28,19 @@ public class Inventory : MonoBehaviour
         EventsManager.AddToInventory -= AddItemInventory;
         EventsManager.EquipItem -= EquipButtons;
         EventsManager.UnEquipItem -= EquipButtons;
+        EventsManager.FindPlayerInteractor -= FindPlayer;
     }
     // Start is called before the first frame update
     void Start()
     {
         InventoryUpdate();
-        playerInteractor = GameObject.FindGameObjectWithTag("Interactor");
 
+    }
+
+    public void FindPlayer(GameObject obj)
+    {
+        playerInteractor = obj;
+        
     }
     public void AddItem()
     {

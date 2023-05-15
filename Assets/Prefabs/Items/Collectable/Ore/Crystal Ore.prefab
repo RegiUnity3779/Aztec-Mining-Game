@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4467431712590592296}
   - component: {fileID: 4546693087102891238}
   - component: {fileID: 3947500978373097329}
-  - component: {fileID: -2316014885293999438}
+  - component: {fileID: 1982817953989757744}
   m_Layer: 0
   m_Name: Crystal Ore
   m_TagString: Item
@@ -112,15 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 956931b080d26ea4fbb2c8c3a552dc46, type: 2}
-  itemObject: {fileID: 1662478051099308879}
-  itemSprite: {fileID: 30197155, guid: 1c1813443d0579a4a945d425803ae00c, type: 3}
-  itemName: Crystal Ore
-  itemDescription: 
-  type: 0
-  value: 100
-  canStack: 1
-  maxStackAmount: 99
---- !u!54 &-2316014885293999438
+--- !u!54 &1982817953989757744
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

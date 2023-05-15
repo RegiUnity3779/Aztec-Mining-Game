@@ -18,7 +18,7 @@ GameObject:
   m_TagString: StairsDown
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1436049811801908956
 Transform:
@@ -130,7 +130,7 @@ GameObject:
   m_TagString: StairsDown
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1436049812232559445
 Transform:

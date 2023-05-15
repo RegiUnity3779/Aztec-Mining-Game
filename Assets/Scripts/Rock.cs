@@ -21,7 +21,7 @@ public class Rock : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if (other.gameObject.CompareTag("StairsUp"))
+        if (other.gameObject.CompareTag("StairsUp") || other.gameObject.CompareTag("Player"))
         {
             EventsManager.GroundObjectRemoved(this.gameObject);
 

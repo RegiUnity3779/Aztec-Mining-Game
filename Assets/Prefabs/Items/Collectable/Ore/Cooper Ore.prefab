@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 425653957388509946}
   - component: {fileID: 6081366805326844333}
   - component: {fileID: 5811861476960628644}
-  - component: {fileID: 4031814947558871697}
+  - component: {fileID: 3384189578614564225}
   m_Layer: 0
   m_Name: Cooper Ore
   m_TagString: Item
@@ -112,15 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 169327ce8b3a51a4ba2b3cd73d0a8273, type: 2}
-  itemObject: {fileID: 1281334635078032186}
-  itemSprite: {fileID: 30197155, guid: 1c1813443d0579a4a945d425803ae00c, type: 3}
-  itemName: Copper Ore
-  itemDescription: 
-  type: 0
-  value: 20
-  canStack: 1
-  maxStackAmount: 99
---- !u!54 &4031814947558871697
+--- !u!54 &3384189578614564225
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

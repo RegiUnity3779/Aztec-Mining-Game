@@ -1021,8 +1021,8 @@ MonoBehaviour:
   stairsUp: {fileID: 1436049812232559444, guid: f7365b7857b67ef4dad2eba537aba450, type: 3}
   stairsDown: {fileID: 1436049812232559444, guid: 1094eac218c353548aa9f0694f1c33ab, type: 3}
   player: {fileID: 8313457332726550894, guid: 31bcfc9e64d919a41aae06bba84390a3, type: 3}
-  groundTilesProbability: 0a0000005a000000
-  landTilesProbability: 5000000014000000
+  groundTilesProbability: 0f00000055000000
+  landTilesProbability: 5a0000000a000000
   groundObjectSpawning: 20
   groundObjectProbability: 5000000028000000
 --- !u!4 &440070529
@@ -3928,7 +3928,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 440070528}
         m_TargetAssemblyTypeName: FloorManager, Assembly-CSharp
-        m_MethodName: DestroyFloor
+        m_MethodName: GoDownStairs
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

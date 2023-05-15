@@ -13,13 +13,12 @@ GameObject:
   - component: {fileID: 7195228564531910095}
   - component: {fileID: 7347666204226211845}
   - component: {fileID: 1789111283327654019}
-  - component: {fileID: 1010056787660768118}
   m_Layer: 0
   m_Name: Crystal Rock
   m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6221213088344205186
 Transform:
@@ -112,19 +111,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: {fileID: 11400000, guid: 145d0aebb5f9cbc4db112ee807f7f679, type: 2}
---- !u!54 &1010056787660768118
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4717784352024209696}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 126
-  m_CollisionDetection: 0

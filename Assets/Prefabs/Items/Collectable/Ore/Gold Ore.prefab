@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2780790308795295356}
   - component: {fileID: 2450987451394558155}
   - component: {fileID: 8722172160533371973}
-  - component: {fileID: 3691146776309391941}
+  - component: {fileID: -2581903247253292438}
   m_Layer: 0
   m_Name: Gold Ore
   m_TagString: Item
@@ -112,15 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 7bbb9f40efad5ff4e9c82e118345fbc0, type: 2}
-  itemObject: {fileID: 1793560128428210935}
-  itemSprite: {fileID: 30197155, guid: 1c1813443d0579a4a945d425803ae00c, type: 3}
-  itemName: Gold Ore
-  itemDescription: 
-  type: 0
-  value: 60
-  canStack: 1
-  maxStackAmount: 99
---- !u!54 &3691146776309391941
+--- !u!54 &-2581903247253292438
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

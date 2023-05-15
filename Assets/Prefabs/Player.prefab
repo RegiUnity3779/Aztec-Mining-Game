@@ -116,8 +116,8 @@ GameObject:
   - component: {fileID: 1358454669522699079}
   - component: {fileID: 9085866600927579060}
   - component: {fileID: 2007544780752770640}
-  - component: {fileID: 3637685900317513629}
   - component: {fileID: 7972427774419389568}
+  - component: {fileID: -3585326147526331722}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -134,8 +134,8 @@ Transform:
   m_GameObject: {fileID: 8313457332726550894}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4806771658940816449}
   - {fileID: 2303280328332510600}
@@ -205,22 +205,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3637685900317513629
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8313457332726550894}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &7972427774419389568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,3 +219,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInteractor: {fileID: 6696062347001259653}
   playerEquip: {fileID: 2327220224401885488}
+--- !u!54 &-3585326147526331722
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8313457332726550894}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0

@@ -69,6 +69,12 @@ public class PlayerController : MonoBehaviour
                 Interact(interactableObject.GetComponent<Item>());
 
             }
+
+            if (interactableObject.CompareTag("StairsDown") && !playerEquip.itemEquiped)
+            {
+                EventsManager.DownStairs();
+
+            }
         }
        
     }
