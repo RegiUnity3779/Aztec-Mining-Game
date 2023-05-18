@@ -58,10 +58,10 @@ public class FloorManager : MonoBehaviour
     private void Update()
     {
 
-        Debug.DrawRay(upStairTile, Vector3.forward, Color.red, 0.5f);
-        Debug.DrawRay(upStairTile, -Vector3.forward, Color.red, 0.5f);
-        Debug.DrawRay(upStairTile, Vector3.right, Color.red, 0.5f);
-        Debug.DrawRay(upStairTile, -Vector3.right, Color.red, 0.5f);
+        //Debug.DrawRay(upStairTile, Vector3.forward, Color.red, 0.5f);
+        //Debug.DrawRay(upStairTile, -Vector3.forward, Color.red, 0.5f);
+        //Debug.DrawRay(upStairTile, Vector3.right, Color.red, 0.5f);
+        //Debug.DrawRay(upStairTile, -Vector3.right, Color.red, 0.5f);
     }
     public void GoDownStairs()
     {

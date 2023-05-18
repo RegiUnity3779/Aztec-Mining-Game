@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Slot : MonoBehaviour
 {
     public Image icon;
     Sprite sprite;
+    public TextMeshProUGUI amount;
 
     public ItemData slotItem;
     public int slotAmount;
@@ -14,7 +16,6 @@ public class Slot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UpdateSlot();
 
     }
 
@@ -30,12 +31,20 @@ public class Slot : MonoBehaviour
         {
             sprite = null;
             icon.sprite = sprite;
+            amount.gameObject.SetActive(false);
         }
         else
         {
-
+            if (!amount.gameObject.activeInHierarchy && slotAmount >= 2)
+            {
+                amount.gameObject.SetActive(true);
+                amount.text = $"{slotAmount}";
+            }
+            else
+            {
+                amount.gameObject.SetActive(false);
+            }
             sprite = slotItem.itemSprite;
-
             icon.sprite = sprite;
         }
 

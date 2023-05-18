@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2649867152998913821}
   - component: {fileID: 2649867152998913820}
   - component: {fileID: 2649867152998913818}
+  - component: {fileID: 2074151155}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -80,3 +81,18 @@ MonoBehaviour:
   - {fileID: 0}
   selectedSlot: {fileID: 0}
   playerInteractor: {fileID: 0}
+  equipButton: {fileID: 0}
+  unEquipButton: {fileID: 0}
+  dropButton: {fileID: 0}
+--- !u!114 &2074151155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2649867152998913823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74bc59b3b8fc12c43aaba3a90c38c9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
