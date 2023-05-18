@@ -58,14 +58,14 @@ public class PlayerController : MonoBehaviour
         {
             if (interactableObject.CompareTag("Rock") && playerEquip.itemEquiped && playerEquip.item.equipment == EquipmentType.Pickaxe)
             {
-                Debug.Log("Rock hit");
+               // Debug.Log("Rock hit");
                 Interact(interactableObject.GetComponent<Rock>());
                 
             }
 
             if (interactableObject.CompareTag("Item") && !playerEquip.itemEquiped)
             {
-                Debug.Log("Item hit");
+               // Debug.Log("Item hit");
                 Interact(interactableObject.GetComponent<Item>());
 
             }
@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
                 EventsManager.UpStairs();
 
             }
+
         }
        
     }

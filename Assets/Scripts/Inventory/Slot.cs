@@ -31,11 +31,12 @@ public class Slot : MonoBehaviour
         {
             sprite = null;
             icon.sprite = sprite;
+            icon.gameObject.SetActive(false);
             amount.gameObject.SetActive(false);
         }
         else
         {
-            if (!amount.gameObject.activeInHierarchy && slotAmount >= 2)
+            if (!amount.gameObject.activeInHierarchy && slotAmount > 1)
             {
                 amount.gameObject.SetActive(true);
                 amount.text = $"{slotAmount}";
@@ -46,6 +47,7 @@ public class Slot : MonoBehaviour
             }
             sprite = slotItem.itemSprite;
             icon.sprite = sprite;
+            icon.gameObject.SetActive(true);
         }
 
     }
@@ -66,7 +68,7 @@ public class Slot : MonoBehaviour
     public void SlotSelected()
     {
         
-        gameObject.GetComponent<Image>().color = new Color(Color.red.r, Color.red.g, Color.red.b);
+       // gameObject.GetComponent<Image>().color = new Color(Color.red.r, Color.red.g, Color.red.b);
 
     }
 }
