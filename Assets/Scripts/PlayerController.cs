@@ -70,9 +70,15 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            if (interactableObject.CompareTag("StairsDown") && !playerEquip.itemEquiped)
+            if (interactableObject.CompareTag("StairsDown"))
             {
                 EventsManager.DownStairs();
+
+            }
+
+            if (interactableObject.CompareTag("StairsUp"))
+            {
+                EventsManager.UpStairs();
 
             }
         }
