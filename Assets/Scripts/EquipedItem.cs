@@ -51,6 +51,8 @@ public class EquipedItem : MonoBehaviour
         {
             itemEquiped = true;
             equipedObject = Instantiate(item.equipObject, transform);
+            EventsManager.EquipButton(false);
+            EventsManager.UnEquipButton(true);
         }
 
         else
@@ -65,7 +67,8 @@ public class EquipedItem : MonoBehaviour
         {
             Destroy(equipedObject);
             itemEquiped = false;
-            
+            EventsManager.EquipButton(true);
+            EventsManager.UnEquipButton(false);
         }
     }
 }

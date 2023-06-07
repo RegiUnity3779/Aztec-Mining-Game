@@ -4,14 +4,37 @@ using UnityEngine;
 
 public class Interaction : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
-    {
-        EventsManager.Interactable(true, other.gameObject);
 
-    }
-    private void OnTriggerExit(Collider other)
+    bool coolDownFinished = true;
+
+ 
+    //private void OnTriggerEnter(Collider other)
+    //{
+
+    //    EventsManager.Interactable(true, other.gameObject);
+
+    //}
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    EventsManager.Interactable(false, other.gameObject);
+
+    //}
+    private void OnTriggerStay(Collider other)
     {
-        EventsManager.Interactable(false, other.gameObject);
+        if (coolDownFinished)
+        {
+            EventsManager.Interactable(true, other.gameObject);
+            StartCoroutine(DetectInteractable());
+        }
+    }
+
+    IEnumerator DetectInteractable()
+    {
+        coolDownFinished = false;
+
+        yield return new WaitForSeconds(1f);
+
+        coolDownFinished = true;
 
     }
 }

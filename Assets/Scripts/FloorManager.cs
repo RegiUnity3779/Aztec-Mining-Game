@@ -8,7 +8,7 @@ public class FloorManager : MonoBehaviour
     [SerializeField] List<GameObject> floorLayout = new List<GameObject>();
     [SerializeField] List<GameObject> walkableFloor = new List<GameObject>();
     [SerializeField] List<GameObject> stairSite = new List<GameObject>();
-    List<GameObject> floorObjects = new List<GameObject>();
+    [SerializeField] List<GameObject> floorObjects = new List<GameObject>();
 
     public GameObject[] groundTiles;
     public GameObject[] groundObject;
@@ -17,8 +17,10 @@ public class FloorManager : MonoBehaviour
     public GameObject stairsUp;
     public GameObject stairsDown;
     public GameObject player;
+
     private GameObject curPlayer;
     private GameObject curPlayerInteractor;
+    private ItemData curPlayerEquipItem;
 
     public int[] groundTilesProbability;
     public int[] landTilesProbability;
@@ -52,7 +54,7 @@ public class FloorManager : MonoBehaviour
     {
 
         GoDownStairs();
-
+        
 
     }
     private void Update()
@@ -67,6 +69,7 @@ public class FloorManager : MonoBehaviour
     {
         //SceneManager.LoadScene(1);
         NewFloor();
+
        
     }
 
@@ -78,11 +81,22 @@ public class FloorManager : MonoBehaviour
 
     public void NewFloor()
     {
+
+        if (curPlayer != null)
+        {
+            curPlayerEquipItem = curPlayer.GetComponent<PlayerController>().playerEquip.item;
+        }
+        
         curPlayer = null;
         while (!curPlayer)
         {
             DestroyFloor();
             GenerateFloor();
+        }
+        if (curPlayerEquipItem != null)
+        {
+            EventsManager.EquipableItem(curPlayerEquipItem);
+            EventsManager.EquipItem();
         }
     }
     public void GenerateFloor()
@@ -354,10 +368,7 @@ public class FloorManager : MonoBehaviour
             }
 
         }
-     
 
-
-            
     }
     void GroundObjectLayoutProbability()
 
@@ -417,7 +428,7 @@ public class FloorManager : MonoBehaviour
         return sum;
     }
 
-    void StairsRevealed(Vector3 vec)
+   void StairsRevealed(Vector3 vec)
     {
         if (stairsDown.transform.position.x == vec.x && stairsDown.transform.position.z == vec.z)
         {

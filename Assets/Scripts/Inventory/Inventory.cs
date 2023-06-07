@@ -18,16 +18,16 @@ public class Inventory : MonoBehaviour
     private void OnEnable()
     {
         EventsManager.AddToInventory += AddItemInventory;
-        EventsManager.EquipItem += EquipButtons;
-        EventsManager.UnEquipItem += EquipButtons;
+        EventsManager.EquipButton += EquipButton;
+        EventsManager.UnEquipButton += UnEquipButton;
         EventsManager.FindPlayerInteractor += FindPlayer;
     }
 
     private void OnDisable()
     {
         EventsManager.AddToInventory -= AddItemInventory;
-        EventsManager.EquipItem -= EquipButtons;
-        EventsManager.UnEquipItem -= EquipButtons;
+        EventsManager.EquipButton -= EquipButton;
+        EventsManager.UnEquipButton -= UnEquipButton;
         EventsManager.FindPlayerInteractor -= FindPlayer;
     }
     // Start is called before the first frame update
@@ -85,6 +85,7 @@ public class Inventory : MonoBehaviour
     public void DropItem(ItemData item)
     {
         Instantiate(item.itemObject, playerInteractor.transform.position, Quaternion.identity);
+        
     }
 
     public void DropItem()
@@ -104,14 +105,16 @@ public class Inventory : MonoBehaviour
                 Instantiate(selectedSlot.slotItem.itemObject, playerInteractor.transform.position, Quaternion.identity);
                 if (data.inventory[i].amount <= 0)
                     {
-                        data.inventory[i].item = null;
-                        data.inventory[i].hasItem = false;
+                    data.inventory[i].item = null;
+                    data.inventory[i].hasItem = false;
+                    
                     }
                 InventoryUpdate();
-                
+                SlotSelected(inventory[i]);
                 return;
                 }
             }
+
     }
 
     public void InventoryUpdate()
@@ -161,68 +164,51 @@ public class Inventory : MonoBehaviour
         selectedSlot = slot;
         if(selectedSlot.slotItem == null)
         {
+            DropButton(false);
+            EquipButton(false);
             return;
         }
         if (selectedSlot.slotItem.type == ItemType.Equipment)
         {
-            if (dropButton.gameObject.activeInHierarchy)
-            {
-                DropButton();
-            }
-            if (!equipButton.gameObject.activeInHierarchy)
-            {
-                equipButton.gameObject.SetActive(true);
-            }
 
-            EventsManager.EquipableItem(selectedSlot.slotItem);
+            
+          DropButton(false);
+          EquipButton(true);
 
+          EventsManager.EquipableItem(selectedSlot.slotItem);
+
+        }
+        else if (selectedSlot.slotItem.type == ItemType.Resource)
+        {
+            DropButton(true);
+            EquipButton(false);
         }
         else
         {
-            if (!dropButton.gameObject.activeInHierarchy)
-            {
-                DropButton();
-            }
-
-
+         DropButton(true);
         }
         
         
     }
     
-    public void EquipButtons()
-        {
-        if (equipButton.gameObject.activeInHierarchy)
-        {
-            equipButton.gameObject.SetActive(false);
-        }
-        else
-        {
-            equipButton.gameObject.SetActive(true);
-        }
+    public void EquipButton(bool equip)
+    {
 
-        if (unEquipButton.gameObject.activeInHierarchy)
-        {
-            unEquipButton.gameObject.SetActive(false);
-        }
-        else
-        {
-            unEquipButton.gameObject.SetActive(true);
-        }
-        
+        equipButton.gameObject.SetActive(equip);
+
     }
 
-    public void DropButton()
+    public void UnEquipButton(bool equip)
     {
-        if (dropButton.gameObject.activeInHierarchy)
-        {
-            dropButton.gameObject.SetActive(false);
-        }
-        else
-        {
-            dropButton.gameObject.SetActive(true);
-        }
 
+        unEquipButton.gameObject.SetActive(equip);
+
+    }
+
+    public void DropButton(bool drop)
+    {
+        dropButton.gameObject.SetActive(drop);
+        
     }
 }
 
