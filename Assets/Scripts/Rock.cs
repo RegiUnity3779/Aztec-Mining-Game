@@ -6,6 +6,7 @@ using UnityEngine;
 public class Rock : MonoBehaviour
 {
     public RockType type;
+    private GameObject stairsD;
 
     void Start()
     {
@@ -26,13 +27,31 @@ public class Rock : MonoBehaviour
             EventsManager.GroundObjectRemoved(this.gameObject);
 
         }
-        else if (other.gameObject.CompareTag("StairsDown"))
+        if (other.gameObject.CompareTag("StairsDown"))
         {
-            other.gameObject.SetActive(false);
+            stairsD = other.gameObject;
+            Debug.Log("StairDown");
+            stairsD.GetComponent<StairsDown>().active = false;
+            stairsD.SetActive(false);
+            
+
         }
     }
     public void RockDestroyed()
     {
+        if (stairsD != null)
+        {
+            if (gameObject.transform.position.x == stairsD.transform.position.x && gameObject.transform.position.z == stairsD.transform.position.z)
+            {
+                stairsD.SetActive(true);
+                stairsD.GetComponent<StairsDown>().active = true;
+                stairsD = null;
+                Destroy(this.gameObject);
+                return;
+            }
+        }
+
+
         int a = Random.Range(0, 100);
         
         if (a < type.spawnChance)

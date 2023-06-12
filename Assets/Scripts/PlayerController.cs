@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            if (interactableObject.CompareTag("StairsDown"))
+            if (interactableObject.CompareTag("StairsDown") && interactableObject.GetComponentInChildren<StairsDown>().active == true)
             {
                 EventsManager.DownStairs();
 
