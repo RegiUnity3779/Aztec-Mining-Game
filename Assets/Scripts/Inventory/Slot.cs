@@ -36,7 +36,7 @@ public class Slot : MonoBehaviour
         }
         else
         {
-            if (!amount.gameObject.activeInHierarchy && slotAmount > 1)
+            if (slotAmount > 1)
             {
                 amount.gameObject.SetActive(true);
                 amount.text = $"{slotAmount}";

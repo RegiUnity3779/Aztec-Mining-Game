@@ -30,7 +30,6 @@ public class Rock : MonoBehaviour
         if (other.gameObject.CompareTag("StairsDown"))
         {
             stairsD = other.gameObject;
-            Debug.Log("StairDown");
             stairsD.GetComponent<StairsDown>().active = false;
             stairsD.SetActive(false);
             
@@ -78,7 +77,7 @@ public class Rock : MonoBehaviour
             {
                 Instantiate(type.spawnItem[i].gameObject, transform.position, Quaternion.identity);
                 
-               // Debug.Log(type.spawnItem[i]);
+               
                 return;
             }
             

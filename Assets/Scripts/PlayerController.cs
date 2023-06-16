@@ -54,18 +54,18 @@ public class PlayerController : MonoBehaviour
     void Interaction()
     {
      
-        if (canInteract) 
+        if (canInteract && interactableObject != null) 
         {
             if (interactableObject.CompareTag("Rock") && playerEquip.itemEquiped && playerEquip.item.equipment == EquipmentType.Pickaxe)
             {
-               // Debug.Log("Rock hit");
+               
                 Interact(interactableObject.GetComponent<Rock>());
                 
             }
 
             if (interactableObject.CompareTag("Item") && !playerEquip.itemEquiped)
             {
-               // Debug.Log("Item hit");
+               
                 Interact(interactableObject.GetComponent<Item>());
 
             }
@@ -82,6 +82,10 @@ public class PlayerController : MonoBehaviour
 
             }
 
+            else
+            {
+
+            }
         }
        
     }
@@ -101,14 +105,22 @@ public class PlayerController : MonoBehaviour
 
     void Interactable(bool interact, GameObject gameObject)
     {
-        canInteract = interact;
-        if(canInteract == false)
+        if (gameObject != null)
         {
-            interactableObject = null;
+            canInteract = interact;
+            if (canInteract == false)
+            {
+                interactableObject = null;
+            }
+            else
+            {
+                interactableObject = gameObject;
+            }
         }
         else
         {
-            interactableObject = gameObject;
+            canInteract = false;
+            interactableObject = null;
         }
     }
     

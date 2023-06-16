@@ -175,7 +175,9 @@ public class Inventory : MonoBehaviour
           DropButton(false);
           EquipButton(true);
 
+            
           EventsManager.EquipableItem(selectedSlot.slotItem);
+            
 
         }
         else if (selectedSlot.slotItem.type == ItemType.Resource)

@@ -21,6 +21,7 @@ public class FloorManager : MonoBehaviour
     private GameObject curPlayer;
     private GameObject curPlayerInteractor;
     private ItemData curPlayerEquipItem;
+    private bool curPlayerItemEquiped = false;
 
     public int[] groundTilesProbability;
     public int[] landTilesProbability;
@@ -85,6 +86,7 @@ public class FloorManager : MonoBehaviour
         if (curPlayer != null)
         {
             curPlayerEquipItem = curPlayer.GetComponent<PlayerController>().playerEquip.item;
+            curPlayerItemEquiped = curPlayer.GetComponent<PlayerController>().playerEquip.itemEquiped;
         }
         
         curPlayer = null;
@@ -93,7 +95,7 @@ public class FloorManager : MonoBehaviour
             DestroyFloor();
             GenerateFloor();
         }
-        if (curPlayerEquipItem != null)
+        if (curPlayerEquipItem != null && curPlayerItemEquiped == true)
         {
             EventsManager.EquipableItem(curPlayerEquipItem);
             EventsManager.EquipItem();
