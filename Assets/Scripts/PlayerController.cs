@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    private GameObject gameManager;
     private float playerSpeed = 5.0f;
     private float playerTurnSpeed = 75.0f;
 
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = GameObject.Find("GameManager");
     }
 
     // Update is called once per frame
@@ -56,35 +56,105 @@ public class PlayerController : MonoBehaviour
      
         if (canInteract && interactableObject != null) 
         {
-            if (interactableObject.CompareTag("Rock") && playerEquip.itemEquiped && playerEquip.item.equipment == EquipmentType.Pickaxe)
+            if (gameManager.GetComponent<GameManager>().autoEquipMode == false)
             {
-               
-                Interact(interactableObject.GetComponent<Rock>());
-                
+                if (interactableObject.CompareTag("Rock") && playerEquip.itemEquiped && playerEquip.item.equipment == EquipmentType.Pickaxe)
+                {
+
+                    Interact(interactableObject.GetComponent<Rock>());
+
+                }
+
+                if (interactableObject.CompareTag("Item") && !playerEquip.itemEquiped)
+                {
+
+                    Interact(interactableObject.GetComponent<Item>());
+
+                }
+
+                if (interactableObject.CompareTag("StairsDown") && interactableObject.GetComponentInChildren<StairsDown>().active == true)
+                {
+                    EventsManager.DownStairs();
+
+                }
+
+                if (interactableObject.CompareTag("StairsUp"))
+                {
+                    EventsManager.UpStairs();
+
+                }
+
+                else
+                {
+
+                }
             }
-
-            if (interactableObject.CompareTag("Item") && !playerEquip.itemEquiped)
-            {
-               
-                Interact(interactableObject.GetComponent<Item>());
-
-            }
-
-            if (interactableObject.CompareTag("StairsDown") && interactableObject.GetComponentInChildren<StairsDown>().active == true)
-            {
-                EventsManager.DownStairs();
-
-            }
-
-            if (interactableObject.CompareTag("StairsUp"))
-            {
-                EventsManager.UpStairs();
-
-            }
-
             else
             {
+   
+                if (interactableObject.CompareTag("Rock"))
 
+                {   Inventory inventory = gameManager.GetComponent<Inventory>();
+                    if(playerEquip.item == null)
+                    {
+                        for (int i = 0; i < inventory.data.inventory.Count; i++)
+                        {
+                            if (inventory.data.inventory[i].item.equipment == EquipmentType.Pickaxe)
+                            {
+                                inventory.SlotSelected(inventory.inventory[i]);
+
+                            }
+                        }
+                    }
+
+                   else if(playerEquip.item.equipment != EquipmentType.Pickaxe)
+                    {
+                        for (int i = 0; i < inventory.data.inventory.Count; i++)
+                        {
+                            if(inventory.data.inventory[i].item.equipment == EquipmentType.Pickaxe)
+                            {
+                                inventory.SlotSelected(inventory.inventory[i]);
+ 
+                            }
+                        }
+
+                    }
+                    if (playerEquip.itemEquiped == false)
+                        {
+                            EventsManager.EquipItem();
+                        }
+
+                    Interact(interactableObject.GetComponent<Rock>());
+
+                }
+
+                if (interactableObject.CompareTag("Item"))
+                {
+                    if (playerEquip.itemEquiped == true)
+                    {
+                        EventsManager.UnEquipItem();
+                    }
+
+                    Interact(interactableObject.GetComponent<Item>());
+
+                }
+
+                if (interactableObject.CompareTag("StairsDown") && interactableObject.GetComponentInChildren<StairsDown>().active == true)
+                {
+                    EventsManager.DownStairs();
+
+                }
+
+                if (interactableObject.CompareTag("StairsUp"))
+                {
+                    EventsManager.UpStairs();
+
+                }
+
+                else
+                {
+
+                }
             }
         }
        

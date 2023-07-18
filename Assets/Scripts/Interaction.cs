@@ -19,6 +19,8 @@ public class Interaction : MonoBehaviour
     //    EventsManager.Interactable(false, other.gameObject);
 
     //}
+
+    //this needs to be updated as it currently keep up to date with what is in front of it when null. Perhaps change to raycast.
     private void OnTriggerStay(Collider other)
     {
         if (coolDownFinished)

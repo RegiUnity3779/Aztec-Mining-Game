@@ -53,12 +53,17 @@ public class EquipedItem : MonoBehaviour
             equipedObject = Instantiate(item.equipObject, transform);
             EventsManager.EquipButton(false);
             EventsManager.UnEquipButton(true);
+            EventsManager.EquipToggleInteractable(itemEquiped);
+            EventsManager.EquipToggle(itemEquiped, item);
         }
 
         else
         {
             itemEquiped = false;
+            EventsManager.EquipToggleInteractable(itemEquiped);
+            EventsManager.EquipToggle(itemEquiped, item);
         }
+       
     }
 
      void ItemUnEquiped()
@@ -69,6 +74,7 @@ public class EquipedItem : MonoBehaviour
             itemEquiped = false;
             EventsManager.EquipButton(true);
             EventsManager.UnEquipButton(false);
+            EventsManager.EquipToggle(itemEquiped, item);
         }
     }
 }

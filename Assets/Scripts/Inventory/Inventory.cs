@@ -197,7 +197,7 @@ public class Inventory : MonoBehaviour
     {
 
         equipButton.gameObject.SetActive(equip);
-
+        
     }
 
     public void UnEquipButton(bool equip)

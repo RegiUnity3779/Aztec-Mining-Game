@@ -13,6 +13,8 @@ public static class EventsManager
     public static Action UnEquipItem;
     public static Action<Boolean> EquipButton;
     public static Action<Boolean> UnEquipButton;
+    public static Action<Boolean, ItemData> EquipToggle;
+    public static Action<Boolean> EquipToggleInteractable;
     public static Action<GameObject> GroundObjectRemoved;
     public static Action DownStairs;
     public static Action UpStairs;
