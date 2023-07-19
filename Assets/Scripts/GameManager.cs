@@ -2,15 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject[] floorLevel;
     public bool autoEquipMode;
-    private int autoEquipModeStaminaPenalty;
-    public int stamina;
+    private int autoEquipModeStaminaPenalty = 1;
+    private int staminaCost = 2;
+    private float staminaPercentage;
+    public int staminaCurrent;
     public int staminaMax;
+    public Image staminaBar;
+    public TextMeshProUGUI staminaBarText;
+    public TextMeshProUGUI floorLevelText;
+
+    public bool zenMode = false;
     public Toggle equipToggle;
     public Image equipImage;
     public Sprite offSprite;
@@ -24,18 +32,23 @@ public class GameManager : MonoBehaviour
     {
         EventsManager.EquipToggle += EquipToggle;
         EventsManager.EquipToggleInteractable += EquipInteractable;
+        EventsManager.Stamina += Stamina;
+        EventsManager.FloorChange += FloorChange;
     }
 
     private void OnDisable()
     {
         EventsManager.EquipToggle -= EquipToggle;
         EventsManager.EquipToggleInteractable -= EquipInteractable;
+        EventsManager.Stamina -= Stamina;
+        EventsManager.FloorChange -= FloorChange;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         EquipToggle(false, null);
+        StaminaBar();
         //instance = this.gameObject;
         //if (instance != null)
         //{
@@ -118,6 +131,60 @@ public class GameManager : MonoBehaviour
     private void EquipInteractable(bool b)
     {
         equipToggle.interactable = b;
+    }
+
+    public void Stamina()
+    {
+        if (staminaCurrent > 0 && !zenMode)
+        {
+
+            staminaCurrent -= staminaCost;
+            if (autoEquipMode)
+            {
+                staminaCurrent -= autoEquipModeStaminaPenalty;
+            }
+            if (staminaCurrent <= 0)
+            {
+                staminaCurrent = 0;
+                Debug.Log("Fainted");
+            }
+
+            StaminaBar();
+        }
+
+    }
+    public void StaminaBar()
+    {
+        
+
+        if (!zenMode)
+        {
+            staminaBarText.text = $"{staminaCurrent}/{staminaMax}";
+            //To convert stamina to a float
+            float staminaPercentage = (float)staminaCurrent/(float)staminaMax;
+            staminaBar.fillAmount = staminaPercentage;
+        }
+
+        else
+        {
+            staminaBarText.text = "Infinity";
+            staminaBar.fillAmount = 1;
+        }
+    }
+
+    private void FloorChange(int floor)
+    {
+        floorLevelText.text = $"Floor {floor}";
+
+        if (floor == 0)
+        {
+            floorLevelText.gameObject.SetActive(false);
+        }
+
+        else
+        {
+            floorLevelText.gameObject.SetActive(true);
+        }
     }
 
 }

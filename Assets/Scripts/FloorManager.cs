@@ -17,6 +17,7 @@ public class FloorManager : MonoBehaviour
     public GameObject stairsUp;
     public GameObject stairsDown;
     public GameObject player;
+    private int floorLevel = 0;
 
     private GameObject curPlayer;
     private GameObject curPlayerInteractor;
@@ -28,8 +29,8 @@ public class FloorManager : MonoBehaviour
     public int groundObjectSpawning;
     public int[] groundObjectProbability;
 
-    int mapSizeX = 10;
-    int mapSizeZ = 10;
+    int mapSizeX;
+    int mapSizeZ;
 
 
     private void OnEnable()
@@ -53,8 +54,7 @@ public class FloorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        GoDownStairs();
+    GoDownStairs();
         
 
     }
@@ -69,15 +69,21 @@ public class FloorManager : MonoBehaviour
     public void GoDownStairs()
     {
         //SceneManager.LoadScene(1);
+        floorLevel++;
         NewFloor();
+        EventsManager.FloorChange(floorLevel);
+        EventsManager.PlayerMarker();
 
        
     }
 
     public void GoUpStairs()
     {
-       // SceneManager.LoadScene(0);
+        floorLevel = 0;
+        EventsManager.FloorChange(floorLevel);
+        // SceneManager.LoadScene(0);
         FindPlayer();
+        
     }
 
     public void NewFloor()
@@ -147,6 +153,8 @@ public class FloorManager : MonoBehaviour
 
     void GroundLayout()
     {
+        mapSizeX = Random.Range(8, 15);
+        mapSizeZ = Random.Range(8, 15);
         for (int x = 0; x < mapSizeX; x++)
         {
             for (int z = 0; z < mapSizeZ; z++)

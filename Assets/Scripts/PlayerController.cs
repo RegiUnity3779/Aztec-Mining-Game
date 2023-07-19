@@ -17,16 +17,19 @@ public class PlayerController : MonoBehaviour
     public EquipedItem playerEquip;
     private bool canInteract;
     private GameObject interactableObject;
+    public GameObject playerIndicator;
 
 
     private void OnEnable()
     {
         EventsManager.Interactable += Interactable;
+        EventsManager.PlayerMarker += PlayerMarker;
     }
 
     private void OnDisable()
     {
         EventsManager.Interactable -= Interactable;
+        EventsManager.PlayerMarker -= PlayerMarker;
     }
 
     // Start is called before the first frame update
@@ -62,6 +65,7 @@ public class PlayerController : MonoBehaviour
                 {
 
                     Interact(interactableObject.GetComponent<Rock>());
+                    EventsManager.Stamina();
 
                 }
 
@@ -117,7 +121,6 @@ public class PlayerController : MonoBehaviour
  
                             }
                         }
-
                     }
                     if (playerEquip.itemEquiped == false)
                         {
@@ -125,6 +128,7 @@ public class PlayerController : MonoBehaviour
                         }
 
                     Interact(interactableObject.GetComponent<Rock>());
+                    EventsManager.Stamina();
 
                 }
 
@@ -193,5 +197,19 @@ public class PlayerController : MonoBehaviour
             interactableObject = null;
         }
     }
-    
-}
+    public void PlayerMarker()
+    {
+        StartCoroutine("PlayerMarkerTimer");
+    }
+
+    public IEnumerator PlayerMarkerTimer()
+    {
+        playerIndicator.SetActive(true);
+        yield return new WaitForSeconds(3);
+        playerIndicator.SetActive(false);
+    }
+
+    }
+
+
+
