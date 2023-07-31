@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rockName: Crystal Rock
   rockColour: {fileID: 2100000, guid: c5380b5b6a8d4d24b87446ca04f8499a, type: 2}
-  spawnChance: 10
+  spawnChance: 25
   spawnItem:
   - {fileID: 2496075354032821882, guid: ef02a8dca6dea414bacf07b6fd971760, type: 3}
   - {fileID: 8722172160533371973, guid: 4a223d35eb5544a4d9274a7e35bd833e, type: 3}

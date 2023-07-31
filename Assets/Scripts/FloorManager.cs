@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class FloorManager : MonoBehaviour
 {
@@ -54,8 +53,7 @@ public class FloorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    GoDownStairs();
-        
+        GoDownStairs();
 
     }
     private void Update()
@@ -68,7 +66,8 @@ public class FloorManager : MonoBehaviour
     }
     public void GoDownStairs()
     {
-        //SceneManager.LoadScene(1);
+        
+        
         floorLevel++;
         NewFloor();
         EventsManager.FloorChange(floorLevel);
@@ -81,9 +80,10 @@ public class FloorManager : MonoBehaviour
     {
         floorLevel = 0;
         EventsManager.FloorChange(floorLevel);
-        // SceneManager.LoadScene(0);
-        FindPlayer();
+        EventsManager.SceneChange("EntranceFloor");
         
+        
+
     }
 
     public void NewFloor()
@@ -191,7 +191,9 @@ public class FloorManager : MonoBehaviour
     }
     void BoundaryLayout(int x, int z)
     {
-        floorLayout.Add(Instantiate(groundTiles[1], new Vector3(x, groundTiles[1].transform.localScale.y / 2, z), Quaternion.identity));
+        GameObject floorTile = Instantiate(groundTiles[1], new Vector3(x, groundTiles[1].transform.localScale.y / 2, z), Quaternion.identity);
+        floorTile.transform.SetParent(this.transform);
+        floorLayout.Add(floorTile);
         return;
     }
     bool GroundLayoutCompare(int x, int z)
@@ -233,7 +235,9 @@ public class FloorManager : MonoBehaviour
             {
                 if (tile.CompareTag("Walkable"))
                 {
-                    floorLayout.Add(Instantiate(groundTiles[1], new Vector3(x, groundTiles[1].transform.localScale.y / 2, z), Quaternion.identity));
+                    GameObject floorTile = Instantiate(groundTiles[1], new Vector3(x, groundTiles[1].transform.localScale.y / 2, z), Quaternion.identity);
+                    floorTile.transform.SetParent(this.transform);
+                    floorLayout.Add(floorTile);
                     return;
                 }
 
@@ -260,8 +264,10 @@ public class FloorManager : MonoBehaviour
 
                 if (a < 0)
                 {
-                floorLayout.Add(Instantiate(groundTiles[i], new Vector3(x, groundTiles[i].transform.localScale.y / 2, z), Quaternion.identity));
-                    return;
+                GameObject floorTile =Instantiate(groundTiles[i], new Vector3(x, groundTiles[i].transform.localScale.y / 2, z), Quaternion.identity);
+                floorTile.transform.SetParent(this.transform);
+                floorLayout.Add(floorTile);
+                return;
                 }
 
         }
@@ -279,7 +285,9 @@ public class FloorManager : MonoBehaviour
 
             if (a < 0)
             {
-                floorLayout.Add(Instantiate(groundTiles[i], new Vector3(x, groundTiles[i].transform.localScale.y / 2, z), Quaternion.identity));
+                GameObject floorTile = Instantiate(groundTiles[i], new Vector3(x, groundTiles[i].transform.localScale.y / 2, z), Quaternion.identity);
+                floorTile.transform.SetParent(this.transform);
+                floorLayout.Add(floorTile);
                 return;
             }
 
@@ -331,7 +339,7 @@ public class FloorManager : MonoBehaviour
                 {
                 if(hit.collider.gameObject.CompareTag("Walkable")) 
                     {
-                        curPlayer = Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y / 2) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity);
+                        curPlayer = Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity);
                         floorObjects.Add(curPlayer);
                     return;
                 }
@@ -345,7 +353,7 @@ public class FloorManager : MonoBehaviour
             {
                     if (hit.collider.gameObject.CompareTag("Walkable"))
                     {
-                        curPlayer = Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y / 2) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity);
+                        curPlayer = Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity);
                         floorObjects.Add(curPlayer);
                     return;
                 }
@@ -358,7 +366,7 @@ public class FloorManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Walkable"))
                 {
-                        curPlayer = Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y / 2) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity);
+                        curPlayer = Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity);
                         floorObjects.Add(curPlayer);
                     return;
                 }
@@ -371,7 +379,7 @@ public class FloorManager : MonoBehaviour
             {
                     if (hit.collider.gameObject.CompareTag("Walkable"))
                     {
-                        curPlayer = Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y / 2) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity);
+                        curPlayer = Instantiate(player, hit.transform.position + new Vector3(0, ((player.transform.localScale.y) + (groundTiles[0].transform.localScale.y / 2)), 0), Quaternion.identity);
                         floorObjects.Add(curPlayer);
                     return;
                     }
@@ -419,7 +427,11 @@ public class FloorManager : MonoBehaviour
 
             if (b < 0)
             {
-                floorObjects.Add(Instantiate(groundObject[i], new Vector3(tile.transform.position.x, (tile.transform.position.y + ((tile.transform.localScale.y / 2) + (groundObject[i].transform.localScale.y / 2))), tile.transform.position.z), Quaternion.identity));
+
+                //floorObjects.Add(Instantiate(groundObject[i], new Vector3(tile.transform.position.x, (tile.transform.position.y + ((tile.transform.localScale.y / 2) + (groundObject[i].transform.localScale.y / 2))), tile.transform.position.z), Quaternion.identity));
+                GameObject floorObj = Instantiate(groundObject[i], new Vector3(tile.transform.position.x, (tile.transform.position.y + (tile.transform.localScale.y / 2)), tile.transform.position.z), Quaternion.identity);
+               // floorObj.transform.SetParent(this.transform);
+                floorObjects.Add(floorObj);
                 return;
             }
 

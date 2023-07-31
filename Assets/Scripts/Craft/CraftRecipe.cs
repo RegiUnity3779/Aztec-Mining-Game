@@ -5,16 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CraftRecipe", menuName ="NewCraftRecipe")]
 public class CraftRecipe : ScriptableObject
 {
-    Recipe[] recipeCost;
-    ItemData craftItem;
-    int craftAmount;
+    public ItemData[] item;
+    public int[] amountNeeded;
+    public ItemData craftItem;
+    public int craftAmount;
 
 }
 
-public class Recipe
-{
-    ItemData item;
-    int amountNeeded;
-}
 
 

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d36e12fe3a2a884da89e90472267d04, type: 3}
+  m_Name: Crystal bar
+  m_EditorClassIdentifier: 
+  item:
+  - {fileID: 11400000, guid: 956931b080d26ea4fbb2c8c3a552dc46, type: 2}
+  - {fileID: 11400000, guid: 0d6ec6a7702a0ec40837049c39004dcf, type: 2}
+  amountNeeded: 0200000005000000
+  craftItem: {fileID: 11400000, guid: 4d0be3ce70cc3e94fbe619b31ffd1645, type: 2}
+  craftAmount: 1

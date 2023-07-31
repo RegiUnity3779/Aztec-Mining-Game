@@ -29,6 +29,10 @@ public class Interaction : MonoBehaviour
             StartCoroutine(DetectInteractable());
         }
     }
+    private void OnTriggerExit(Collider other)
+    {
+        EventsManager.Interactable(false, null);
+    }
 
     IEnumerator DetectInteractable()
     {

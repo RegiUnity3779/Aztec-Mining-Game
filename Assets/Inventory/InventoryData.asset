@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: InventoryData
   m_EditorClassIdentifier: 
   inventory:
-  - item: {fileID: 11400000, guid: 3f861482a0a62ed4780059f29122ddbe, type: 2}
+  - item: {fileID: 11400000, guid: 47daa35a8fab08545bde30652cd4fce1, type: 2}
     amount: 1
     hasItem: 1
-  - item: {fileID: 11400000, guid: c775badf60cd49242810430bb9839080, type: 2}
+  - item: {fileID: 11400000, guid: 0d6ec6a7702a0ec40837049c39004dcf, type: 2}
     amount: 1
     hasItem: 1
   - item: {fileID: 0}

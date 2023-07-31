@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a75530322ca7e2b4f8e9f587797a9cf3, type: 3}
+  m_Name: Gold bar
+  m_EditorClassIdentifier: 
+  itemObject: {fileID: 0}
+  equipObject: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: f83af2a0beb4ea84189bb689428a929d, type: 3}
+  itemName: Gold Bar
+  itemDescription: A metal bar forged from gold
+  type: 0
+  equipment: 0
+  rating: 1
+  value: 140
+  canStack: 1
+  maxStackAmount: 99

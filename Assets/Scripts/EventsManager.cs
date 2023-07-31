@@ -6,6 +6,7 @@ using System;
 public static class EventsManager
 {
     public static Action<ItemData> AddToInventory;
+    public static Action<ItemData> RemoveFromInventory;
     public static Action<Boolean, GameObject> Interactable;
     public static Action<Vector3> StairsRevealed;
     public static Action<ItemData> EquipableItem;
@@ -23,4 +24,7 @@ public static class EventsManager
     public static Action PlayerMarker;
     public static Action<GameObject> ItemInScene;
     public static Action Stamina;
+    public static Action<String> SceneChange;
+    public static Action UnderGroundCheck;
+    public static Action<Boolean> IsUnderGround;
 }

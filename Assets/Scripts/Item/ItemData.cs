@@ -13,11 +13,20 @@ public enum EquipmentType
 {
     None,
     Pickaxe,
+    Torch,
     Shovel,
     Hammer
     
 }
+public enum Rating
+{
+    A,
+    B,
+    C,
+    D,
+    E
 
+}
 
 [CreateAssetMenu(fileName = "Item", menuName = "Items/ New Item")]
 public class ItemData : ScriptableObject
@@ -31,7 +40,7 @@ public class ItemData : ScriptableObject
     public string itemDescription;
     public ItemType type;
     public EquipmentType equipment;
-
+    public Rating rating;
     public int value;
 
 

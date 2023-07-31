@@ -47,6 +47,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorLevel: []
+  autoEquipMode: 0
+  staminaCurrent: 100
+  staminaMax: 100
+  staminaBar: {fileID: 0}
+  staminaBarText: {fileID: 0}
+  floorLevelText: {fileID: 0}
+  zenMode: 0
+  equipToggle: {fileID: 0}
+  equipImage: {fileID: 0}
+  offSprite: {fileID: 21300000, guid: 624c643fe39787548bbc22334b67a99e, type: 3}
+  onSprite: {fileID: 21300000, guid: d72fb88f680317e458765012509f4e8f, type: 3}
+  inGameUICanvas: {fileID: 0}
 --- !u!114 &3480950737057686395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +73,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 1933ffd4878564c4cae88864c2f515b3, type: 2}
   inventory:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  craftInventory:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -96,3 +127,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74bc59b3b8fc12c43aaba3a90c38c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recipesList:
+  - {fileID: 11400000, guid: 8f1f96cf1862d764d9de7dfaefa3ab18, type: 2}
+  - {fileID: 11400000, guid: 36ef1931c6a1e384699b5d37b1b9f92e, type: 2}
+  craftSlot:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  resultCraftSlot: {fileID: 0}

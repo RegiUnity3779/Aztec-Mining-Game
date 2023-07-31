@@ -2,16 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Inventory : MonoBehaviour
 {
     public InventoryData data;
 
     public Slot[] inventory;
-    public Slot selectedSlot;
+    public Slot[] craftInventory;
+    public Slot selectedSlot = null;
     public GameObject playerInteractor;
 
-    int amountOfSlots;
+    public TextMeshProUGUI itemName;
+    public TextMeshProUGUI itemDescription;
+    public TextMeshProUGUI itemType;
+    public TextMeshProUGUI itemValue;
+    public TextMeshProUGUI itemRating;
+
+
     public Button equipButton;
     public Button unEquipButton;
     public Button dropButton;
@@ -21,6 +29,7 @@ public class Inventory : MonoBehaviour
         EventsManager.EquipButton += EquipButton;
         EventsManager.UnEquipButton += UnEquipButton;
         EventsManager.FindPlayerInteractor += FindPlayer;
+        EventsManager.RemoveFromInventory += RemoveItemInventory;
     }
 
     private void OnDisable()
@@ -29,11 +38,14 @@ public class Inventory : MonoBehaviour
         EventsManager.EquipButton -= EquipButton;
         EventsManager.UnEquipButton -= UnEquipButton;
         EventsManager.FindPlayerInteractor -= FindPlayer;
+        EventsManager.RemoveFromInventory -= RemoveItemInventory;
     }
     // Start is called before the first frame update
     void Start()
     {
+        
         InventoryUpdate();
+        UpdateInventoryText();
 
     }
 
@@ -82,6 +94,32 @@ public class Inventory : MonoBehaviour
 
     }
 
+    public void RemoveItemInventory(ItemData item)
+    {
+
+        for (int i = 0; i < data.inventory.Count; i++)
+        {
+
+
+            if (data.inventory[i].item == item)
+            {
+
+                data.inventory[i].amount--;
+                if (data.inventory[i].amount <= 0)
+                {
+                    data.inventory[i].item = null;
+                    data.inventory[i].hasItem = false;
+                }
+                InventoryUpdate();
+                
+                return;
+            }
+         
+
+        }
+
+    }
+
     public void DropItem(ItemData item)
     {
         Instantiate(item.itemObject, playerInteractor.transform.position, Quaternion.identity);
@@ -111,6 +149,7 @@ public class Inventory : MonoBehaviour
                     }
                 InventoryUpdate();
                 SlotSelected(inventory[i]);
+                UpdateInventoryText();
                 return;
                 }
             }
@@ -124,11 +163,11 @@ public class Inventory : MonoBehaviour
 
         {
 
-                if (data.inventory[i].item)
+                if (data.inventory[i].item && data.inventory[i].amount > 0)
                 {
                 inventory[i].slotItem = data.inventory[i].item;
                 inventory[i].slotAmount = data.inventory[i].amount;
-                data.inventory[i].hasItem = data.inventory[i].hasItem;
+                data.inventory[i].hasItem = true;
                 inventory[i].UpdateItem(inventory[i].slotItem,inventory[i].slotAmount);
                 }
             else
@@ -139,6 +178,27 @@ public class Inventory : MonoBehaviour
                 inventory[i].UpdateItem(inventory[i].slotItem, inventory[i].slotAmount);
             }
            
+
+        }
+
+        for (int i = 0; i < craftInventory.Length; i++)
+
+        {
+
+            if (data.inventory[i].item)
+            {
+                craftInventory[i].slotItem = data.inventory[i].item;
+                craftInventory[i].slotAmount = data.inventory[i].amount;
+                craftInventory[i].UpdateItem(inventory[i].slotItem, inventory[i].slotAmount);
+            }
+            else
+            {
+                craftInventory[i].slotItem = null;
+                craftInventory[i].slotAmount = 0;
+                data.inventory[i].hasItem = false;
+                craftInventory[i].UpdateItem(inventory[i].slotItem, inventory[i].slotAmount);
+            }
+
 
         }
 
@@ -162,7 +222,13 @@ public class Inventory : MonoBehaviour
         selectedSlot = null;
         
         selectedSlot = slot;
-        if(selectedSlot.slotItem == null)
+        UpdateButtonOptions();
+        UpdateInventoryText();
+
+    }
+    public void UpdateButtonOptions()
+    {
+        if (selectedSlot.slotItem == null)
         {
             DropButton(false);
             EquipButton(false);
@@ -171,13 +237,13 @@ public class Inventory : MonoBehaviour
         if (selectedSlot.slotItem.type == ItemType.Equipment)
         {
 
-            
-          DropButton(false);
-          EquipButton(true);
 
-            
-          EventsManager.EquipableItem(selectedSlot.slotItem);
-            
+            DropButton(false);
+            EquipButton(true);
+
+
+            EventsManager.EquipableItem(selectedSlot.slotItem);
+
 
         }
         else if (selectedSlot.slotItem.type == ItemType.Resource)
@@ -187,12 +253,9 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-         DropButton(true);
+            DropButton(true);
         }
-        
-        
     }
-    
     public void EquipButton(bool equip)
     {
 
@@ -209,8 +272,50 @@ public class Inventory : MonoBehaviour
 
     public void DropButton(bool drop)
     {
+        
         dropButton.gameObject.SetActive(drop);
         
+    }
+
+    public void UpdateInventoryText()
+    {
+        if (selectedSlot != null)
+        {
+            if (selectedSlot.slotItem != null)
+            {
+                itemName.text = selectedSlot.slotItem.itemName;
+                itemDescription.text = selectedSlot.slotItem.itemDescription;
+                itemType.text = $"Type: {selectedSlot.slotItem.type}";
+                if (selectedSlot.slotItem.value != 0)
+                {
+                    itemValue.gameObject.SetActive(true);
+                    itemValue.text = $"Value: {selectedSlot.slotItem.value}";
+                }
+                else
+                {
+                    itemValue.gameObject.SetActive(false);
+                }
+
+                itemRating.text = $"Rating: {selectedSlot.slotItem.rating}";
+            }
+            else
+            {
+                itemName.text = "";
+                itemDescription.text = "";
+                itemType.text = "";
+                itemValue.text = "";
+                itemRating.text = "";
+            }
+        }
+
+        else
+        {
+            itemName.text = "";
+            itemDescription.text = "";
+            itemType.text = "";
+            itemValue.text = "";
+            itemRating.text = "";
+        }
     }
 }
 

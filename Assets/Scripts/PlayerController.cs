@@ -7,12 +7,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private GameObject gameManager;
-    private float playerSpeed = 5.0f;
+    private float playerSpeed = 4.0f;
     private float playerTurnSpeed = 75.0f;
 
     private float forwardInput;
     private float horizontalInput;
-
+    private bool isUnderGround;
     public GameObject playerInteractor;
     public EquipedItem playerEquip;
     private bool canInteract;
@@ -24,18 +24,23 @@ public class PlayerController : MonoBehaviour
     {
         EventsManager.Interactable += Interactable;
         EventsManager.PlayerMarker += PlayerMarker;
+        EventsManager.IsUnderGround += IsUnderGround;
     }
 
     private void OnDisable()
     {
         EventsManager.Interactable -= Interactable;
         EventsManager.PlayerMarker -= PlayerMarker;
+        EventsManager.IsUnderGround -= IsUnderGround;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager");
+        playerInteractor = this.GetComponentInChildren<Interaction>().gameObject;
+        EventsManager.FindPlayerInteractor(playerInteractor);
+        EventsManager.UnderGroundCheck();
     }
 
     // Update is called once per frame
@@ -78,13 +83,27 @@ public class PlayerController : MonoBehaviour
 
                 if (interactableObject.CompareTag("StairsDown") && interactableObject.GetComponentInChildren<StairsDown>().active == true)
                 {
-                    EventsManager.DownStairs();
+                    EventsManager.UnderGroundCheck();
+                    if (isUnderGround)
+                    {
+                        EventsManager.DownStairs();
+                    }
+                    else
+                    {
+                        EventsManager.SceneChange("Underground");
+                    }
 
                 }
 
                 if (interactableObject.CompareTag("StairsUp"))
                 {
-                    EventsManager.UpStairs();
+                    EventsManager.UnderGroundCheck();
+
+                    if (isUnderGround)
+                    {
+                        EventsManager.UpStairs();
+                    }
+                    
 
                 }
 
@@ -145,13 +164,27 @@ public class PlayerController : MonoBehaviour
 
                 if (interactableObject.CompareTag("StairsDown") && interactableObject.GetComponentInChildren<StairsDown>().active == true)
                 {
-                    EventsManager.DownStairs();
+                    EventsManager.UnderGroundCheck();
+                    if (isUnderGround)
+                    {
+                        EventsManager.DownStairs();
+                    }
+                    else
+                    {
+                        EventsManager.SceneChange("Underground");
+                    }
+                    
 
                 }
 
                 if (interactableObject.CompareTag("StairsUp"))
                 {
-                    EventsManager.UpStairs();
+                    EventsManager.UnderGroundCheck();
+
+                    if (isUnderGround)
+                    {
+                        EventsManager.UpStairs();
+                    }
 
                 }
 
@@ -209,6 +242,13 @@ public class PlayerController : MonoBehaviour
         playerIndicator.SetActive(false);
     }
 
+
+
+    private void IsUnderGround(bool underground)
+    {
+        isUnderGround = underground;
+    }
+  
     }
 
 

@@ -23,8 +23,9 @@ public class GameManager : MonoBehaviour
     public Image equipImage;
     public Sprite offSprite;
     public Sprite onSprite;
-    //public static GameObject inventoryInstance;
-    //public static GameObject instance;
+    public  GameObject inGameUICanvas;
+    private static GameObject inGameUIInstance;
+   private static GameObject instance;
     //public FloorManager floorManager;
 
 
@@ -34,6 +35,8 @@ public class GameManager : MonoBehaviour
         EventsManager.EquipToggleInteractable += EquipInteractable;
         EventsManager.Stamina += Stamina;
         EventsManager.FloorChange += FloorChange;
+        EventsManager.SceneChange += SceneChange;
+        EventsManager.UnderGroundCheck += IsUnderGround;
     }
 
     private void OnDisable()
@@ -42,39 +45,45 @@ public class GameManager : MonoBehaviour
         EventsManager.EquipToggleInteractable -= EquipInteractable;
         EventsManager.Stamina -= Stamina;
         EventsManager.FloorChange -= FloorChange;
+        EventsManager.SceneChange -= SceneChange;
+        EventsManager.UnderGroundCheck -= IsUnderGround;
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        EquipToggle(false, null);
-        StaminaBar();
-        //instance = this.gameObject;
-        //if (instance != null)
-        //{
-        //    Destroy(this);
-
-        //}
-        //DontDestroyOnLoad(instance.gameObject);
 
 
-
-        //if(inventoryInstance == null)
-        //    {
-        //    DontDestroyOnLoad(inventoryInstance);
-
-
-        //}
-        //else
-        //{
-        //    Destroy(inventoryInstance.gameObject);
-        //}
-
-        if (SceneManager.GetActiveScene().name == "UnderGround")
+        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(inGameUICanvas);
+        
+        if (instance == null)
         {
-            EventsManager.DownStairs();
+            instance = this.gameObject;
+            
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
 
+
+        if (inGameUIInstance == null)
+        {
+            inGameUIInstance = inGameUICanvas.gameObject;
+
+
+        }
+        
+        else
+        {
+            Destroy(inGameUICanvas.gameObject);
+        }
+        
+        SceneChange("EntranceFloor");
+        EquipToggle(false, null);
+        StaminaBar();
+        FloorChange(0);
     }
 
     // Update is called once per frame
@@ -160,7 +169,8 @@ public class GameManager : MonoBehaviour
         if (!zenMode)
         {
             staminaBarText.text = $"{staminaCurrent}/{staminaMax}";
-            //To convert stamina to a float
+
+            //To convert stamina to a float from int
             float staminaPercentage = (float)staminaCurrent/(float)staminaMax;
             staminaBar.fillAmount = staminaPercentage;
         }
@@ -174,7 +184,6 @@ public class GameManager : MonoBehaviour
 
     private void FloorChange(int floor)
     {
-        floorLevelText.text = $"Floor {floor}";
 
         if (floor == 0)
         {
@@ -182,9 +191,43 @@ public class GameManager : MonoBehaviour
         }
 
         else
-        {
+        {   
+            floorLevelText.text = $"Floor {floor}";
             floorLevelText.gameObject.SetActive(true);
         }
     }
 
+    public void SceneChange(string name)
+    {
+        
+        if(SceneManager.GetActiveScene().name != name)
+        {
+            SceneManager.LoadScene(name);
+        }
+    }
+    private void GoDownStairs()
+    {
+        EventsManager.DownStairs();
+    }
+   
+    private void IsUnderGround()
+    {
+        if (SceneManager.GetActiveScene().name == "Underground")
+        {
+            if (gameObject.GetComponent<Inventory>().playerInteractor != null)
+            {
+                EventsManager.IsUnderGround(true);
+            }
+
+        }
+        else
+        {
+            if (gameObject.GetComponent<Inventory>().playerInteractor != null)
+            {
+                EventsManager.IsUnderGround(false);
+            }
+            
+
+        }
+    }
 }
