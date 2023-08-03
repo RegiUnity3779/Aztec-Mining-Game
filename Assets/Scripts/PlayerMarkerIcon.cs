@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class PlayerMarkerIcon : MonoBehaviour
 {
-    GameObject _gameObject;
-
-    // Start is called before the first frame update
-    void Start()
+    private GameObject _gameObject;
+    private void Start()
     {
-        _gameObject = Camera.main.gameObject;
+        UpdateCamera();
     }
 
+
     // Update is called once per frame
+ 
+    private void UpdateCamera()
+    {
+        // _gameObject = GameObject.Find("Main Camera");
+        _gameObject = null;
+        _gameObject = GameManager.cameraInstance;
+        //_gameObject =Camera.main.gameObject;
+
+
+    }
     void Update()
     {
+        
         transform.rotation = Quaternion.LookRotation(transform.position - _gameObject.transform.position);
     }
 }

@@ -19,7 +19,8 @@ MonoBehaviour:
   itemDescription: A rock that has copper inside.
   type: 0
   equipment: 0
-  rating: 3
+  rating: 1
   value: 20
   canStack: 1
   maxStackAmount: 99
+  staminaValue: 0

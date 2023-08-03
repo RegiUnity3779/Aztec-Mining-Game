@@ -10,6 +10,7 @@ public class Item : MonoBehaviour
     void Start()
     {
         EventsManager.ItemInScene(this.gameObject);
+        
     }
 
     // Update is called once per frame
@@ -23,5 +24,16 @@ public class Item : MonoBehaviour
         Destroy(gameObject);
         EventsManager.AddToInventory(this.itemData);
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.collider.gameObject.CompareTag("StairsUp") || collision.gameObject.CompareTag("StairsDown"))
+        {
+            EventsManager.GroundObjectRemoved(this.gameObject);
+
+        }
+        
     }
 }

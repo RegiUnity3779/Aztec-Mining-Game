@@ -20,11 +20,11 @@ public enum EquipmentType
 }
 public enum Rating
 {
-    A,
-    B,
-    C,
+    E,
     D,
-    E
+    C,
+    B,
+    A
 
 }
 
@@ -32,7 +32,7 @@ public enum Rating
 public class ItemData : ScriptableObject
 {
 
-
+    public int indexNumber;
     public GameObject itemObject;
     public GameObject equipObject;
     public Sprite itemSprite;
@@ -49,6 +49,10 @@ public class ItemData : ScriptableObject
 
     public bool canStack;
     public int maxStackAmount;
+
+    [Header("Consumerable")]
+
+    public int staminaValue;
 
 
 }

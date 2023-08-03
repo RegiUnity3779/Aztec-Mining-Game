@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     private GameObject gameManager;
     private float playerSpeed = 4.0f;
-    private float playerTurnSpeed = 75.0f;
+    private float playerTurnSpeed = 90.0f;
 
     private float forwardInput;
     private float horizontalInput;
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
         EventsManager.Interactable += Interactable;
         EventsManager.PlayerMarker += PlayerMarker;
         EventsManager.IsUnderGround += IsUnderGround;
+        EventsManager.UpdatePlayerLocation += UpdatePlayerLocation;
     }
 
     private void OnDisable()
@@ -32,14 +33,26 @@ public class PlayerController : MonoBehaviour
         EventsManager.Interactable -= Interactable;
         EventsManager.PlayerMarker -= PlayerMarker;
         EventsManager.IsUnderGround -= IsUnderGround;
+        EventsManager.UpdatePlayerLocation -= UpdatePlayerLocation;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.Find("GameManager");
-        playerInteractor = this.GetComponentInChildren<Interaction>().gameObject;
-        EventsManager.FindPlayerInteractor(playerInteractor);
+        
+        if (GameManager.playerInstance == null)
+        {
+            GameManager.playerInstance = this.gameObject;
+            DontDestroyOnLoad(this);
+
+        }
+
+        else
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        gameManager = GameManager.instance;
         EventsManager.UnderGroundCheck();
     }
 
@@ -64,62 +77,87 @@ public class PlayerController : MonoBehaviour
      
         if (canInteract && interactableObject != null) 
         {
-            if (gameManager.GetComponent<GameManager>().autoEquipMode == false)
-            {
-                if (interactableObject.CompareTag("Rock") && playerEquip.itemEquiped && playerEquip.item.equipment == EquipmentType.Pickaxe)
-                {
-
-                    Interact(interactableObject.GetComponent<Rock>());
-                    EventsManager.Stamina();
-
-                }
-
-                if (interactableObject.CompareTag("Item") && !playerEquip.itemEquiped)
-                {
-
-                    Interact(interactableObject.GetComponent<Item>());
-
-                }
-
-                if (interactableObject.CompareTag("StairsDown") && interactableObject.GetComponentInChildren<StairsDown>().active == true)
-                {
-                    EventsManager.UnderGroundCheck();
-                    if (isUnderGround)
+            
+                    if (gameManager.GetComponent<GameManager>().autoEquipMode == false)
                     {
-                        EventsManager.DownStairs();
+                        if (interactableObject.CompareTag("Rock") && playerEquip.itemEquiped && playerEquip.item.equipment == EquipmentType.Pickaxe)
+                        {
+
+                            Interact(interactableObject.GetComponent<Rock>());
+                            EventsManager.Stamina();
+
+                        }
+
+                        if (interactableObject.CompareTag("Item") && !playerEquip.itemEquiped)
+                        {
+
+                            Interact(interactableObject.GetComponent<Item>());
+
+                        }
+
+                        if (interactableObject.CompareTag("StairsDown"))// interactableObject.CompareTag("StairsDown") && interactableObject.GetComponentInChildren<StairsDown>().active == true
+                        {
+                            EventsManager.UnderGroundCheck();
+                            if (isUnderGround)
+                            {
+                                EventsManager.DownStairs();
+                                
+                            }
+                            else
+                            {
+                                EventsManager.SceneChange("Underground");
+                    }
+
+                        }
+
+                        if (interactableObject.CompareTag("StairsUp"))
+                        {
+                            EventsManager.UnderGroundCheck();
+
+                            if (isUnderGround)
+                            {
+                                EventsManager.UpStairs();
+                               // EventsManager.UpdateCamera();
+                            }
+
+
+                        }
+
+                        else
+                        {
+
+                        }
                     }
                     else
                     {
-                        EventsManager.SceneChange("Underground");
+
+                        if (interactableObject.CompareTag("Rock"))
+
+                        {
+                            Inventory inventory = gameManager.GetComponent<Inventory>();
+                    if (playerEquip.item == null)
+                    {
+                        for (int i = 0; i < inventory.data.inventory.Count; i++)
+                        {
+                            if (inventory.data.inventory[i].hasItem)
+                            {
+                                if (inventory.data.inventory[i].item.type == ItemType.Equipment)
+                                {
+                                    if (inventory.data.inventory[i].item.equipment == EquipmentType.Pickaxe)
+                                    {
+                                        inventory.SlotSelected(inventory.inventory[i]);
+
+                                    }
+                                }
+                            }
+
+
+                        } 
                     }
 
-                }
-
-                if (interactableObject.CompareTag("StairsUp"))
-                {
-                    EventsManager.UnderGroundCheck();
-
-                    if (isUnderGround)
+                    else if (playerEquip.item.type != ItemType.Equipment && playerEquip.item.equipment != EquipmentType.Pickaxe)
                     {
-                        EventsManager.UpStairs();
-                    }
-                    
 
-                }
-
-                else
-                {
-
-                }
-            }
-            else
-            {
-   
-                if (interactableObject.CompareTag("Rock"))
-
-                {   Inventory inventory = gameManager.GetComponent<Inventory>();
-                    if(playerEquip.item == null)
-                    {
                         for (int i = 0; i < inventory.data.inventory.Count; i++)
                         {
                             if (inventory.data.inventory[i].item.equipment == EquipmentType.Pickaxe)
@@ -129,70 +167,61 @@ public class PlayerController : MonoBehaviour
                             }
                         }
                     }
-
-                   else if(playerEquip.item.equipment != EquipmentType.Pickaxe)
-                    {
-                        for (int i = 0; i < inventory.data.inventory.Count; i++)
-                        {
-                            if(inventory.data.inventory[i].item.equipment == EquipmentType.Pickaxe)
+                            if (playerEquip.itemEquiped == false)
                             {
-                                inventory.SlotSelected(inventory.inventory[i]);
- 
+                                EventsManager.EquipItem();
                             }
+
+                            Interact(interactableObject.GetComponent<Rock>());
+                            EventsManager.Stamina();
+
                         }
-                    }
-                    if (playerEquip.itemEquiped == false)
+
+                        if (interactableObject.CompareTag("Item"))
                         {
-                            EventsManager.EquipItem();
+                            if (playerEquip.itemEquiped == true)
+                            {
+                                EventsManager.UnEquipItem();
+                            }
+
+                            Interact(interactableObject.GetComponent<Item>());
+
                         }
 
-                    Interact(interactableObject.GetComponent<Rock>());
-                    EventsManager.Stamina();
+                        if (interactableObject.CompareTag("StairsDown"))
+                        {
+                            EventsManager.UnderGroundCheck();
+                            if (isUnderGround)
+                            {
+                                EventsManager.DownStairs();
+                            }
+                            else
+                            {
+                                EventsManager.SceneChange("Underground");
+                                
+                            }
 
-                }
 
-                if (interactableObject.CompareTag("Item"))
-                {
-                    if (playerEquip.itemEquiped == true)
-                    {
-                        EventsManager.UnEquipItem();
+                        }
+
+                        if (interactableObject.CompareTag("StairsUp"))
+                        {
+                            EventsManager.UnderGroundCheck();
+
+                            if (isUnderGround)
+                            {
+                                EventsManager.UpStairs();
+                        
+                            }
+
+                        }
+
+                        else
+                        {
+
+                        }
                     }
 
-                    Interact(interactableObject.GetComponent<Item>());
-
-                }
-
-                if (interactableObject.CompareTag("StairsDown") && interactableObject.GetComponentInChildren<StairsDown>().active == true)
-                {
-                    EventsManager.UnderGroundCheck();
-                    if (isUnderGround)
-                    {
-                        EventsManager.DownStairs();
-                    }
-                    else
-                    {
-                        EventsManager.SceneChange("Underground");
-                    }
-                    
-
-                }
-
-                if (interactableObject.CompareTag("StairsUp"))
-                {
-                    EventsManager.UnderGroundCheck();
-
-                    if (isUnderGround)
-                    {
-                        EventsManager.UpStairs();
-                    }
-
-                }
-
-                else
-                {
-
-                }
-            }
         }
        
     }
@@ -216,11 +245,13 @@ public class PlayerController : MonoBehaviour
         {
             canInteract = interact;
             if (canInteract == false)
-            {
+            {  
                 interactableObject = null;
+
             }
             else
             {
+               
                 interactableObject = gameObject;
             }
         }
@@ -248,8 +279,17 @@ public class PlayerController : MonoBehaviour
     {
         isUnderGround = underground;
     }
-  
+
+
+    private void UpdatePlayerLocation(Vector3 pos)
+    {
+        this.gameObject.transform.position = pos;
+        this.gameObject.transform.rotation = new Quaternion(0, 0, 0,0);
+        EventsManager.UpdateCamera();
     }
+}
+
+
 
 
 

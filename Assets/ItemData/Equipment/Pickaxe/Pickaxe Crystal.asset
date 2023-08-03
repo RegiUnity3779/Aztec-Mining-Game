@@ -19,7 +19,8 @@ MonoBehaviour:
   itemDescription: A pickaxe made from crystal
   type: 1
   equipment: 1
-  rating: 0
+  rating: 4
   value: 0
   canStack: 0
   maxStackAmount: 0
+  staminaValue: 0

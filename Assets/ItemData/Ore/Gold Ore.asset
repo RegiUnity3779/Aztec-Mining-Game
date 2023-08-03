@@ -19,7 +19,8 @@ MonoBehaviour:
   itemDescription: A rock that has gold inside.
   type: 0
   equipment: 0
-  rating: 1
+  rating: 3
   value: 60
   canStack: 1
   maxStackAmount: 99
+  staminaValue: 0

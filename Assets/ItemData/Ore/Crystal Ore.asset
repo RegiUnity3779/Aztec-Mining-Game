@@ -19,7 +19,8 @@ MonoBehaviour:
   itemDescription: A rock that has crystal inside.
   type: 0
   equipment: 0
-  rating: 0
+  rating: 4
   value: 100
   canStack: 1
   maxStackAmount: 99
+  staminaValue: 0

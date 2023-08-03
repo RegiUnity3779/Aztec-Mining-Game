@@ -19,7 +19,8 @@ MonoBehaviour:
   itemDescription: A rock that has coal inside.
   type: 0
   equipment: 0
-  rating: 4
+  rating: 0
   value: 10
   canStack: 1
   maxStackAmount: 99
+  staminaValue: 0

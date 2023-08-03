@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18cce1cfbcc55247853d8ebb99be386, type: 3}
+  m_Name: Mushroom Zone
+  m_EditorClassIdentifier: 
+  mapSizeXMinAndMax: 0f00000014000000
+  mapSizeZMinAndMax: 0f00000014000000
+  groundTiles:
+  - {fileID: 1602053430519414231, guid: b6d9faeb31708a24296aa00740ca2423, type: 3}
+  - {fileID: 1602053430519414231, guid: 6f3ced6883e8d6848b023ab608e387b3, type: 3}
+  - {fileID: 1602053430519414231, guid: 6a1ca87ceb569904fb1dfb24c7299e05, type: 3}
+  groundObject:
+  - {fileID: 8226342616930967608, guid: de3efa71b0f23614b956690453ec5ffa, type: 3}
+  - {fileID: 8226342616930967608, guid: 40d7b7688bb2e7d40aa2ba36ae5f12c3, type: 3}
+  - {fileID: 8226342616930967608, guid: e4f3b76237d5baf41826754bf5a346d6, type: 3}
+  - {fileID: 8226342616930967608, guid: e81c28732eafde6458cf002d1461e192, type: 3}
+  - {fileID: 8226342616930967608, guid: bf13e08cf250fb94e889abaf1fd44574, type: 3}
+  groundTilesProbability: 0f00000055000000
+  landTilesProbability: 5a0000000a000000
+  groundObjectSpawning: 30
+  groundObjectProbability: 500000003c000000140000000a00000002000000

@@ -19,7 +19,8 @@ MonoBehaviour:
   itemDescription: A torch made from copper
   type: 1
   equipment: 2
-  rating: 3
+  rating: 1
   value: 0
   canStack: 0
   maxStackAmount: 0
+  staminaValue: 0

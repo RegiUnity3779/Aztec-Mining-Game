@@ -19,7 +19,8 @@ MonoBehaviour:
   itemDescription: A pickaxe made from gold
   type: 1
   equipment: 1
-  rating: 1
+  rating: 3
   value: 0
   canStack: 0
   maxStackAmount: 0
+  staminaValue: 0

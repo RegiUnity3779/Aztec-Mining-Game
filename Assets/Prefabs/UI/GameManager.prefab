@@ -47,18 +47,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorLevel: []
-  autoEquipMode: 0
+  floorLevelText: {fileID: 0}
   staminaCurrent: 100
   staminaMax: 100
   staminaBar: {fileID: 0}
   staminaBarText: {fileID: 0}
-  floorLevelText: {fileID: 0}
   zenMode: 0
+  zenModeToggle: {fileID: 0}
   equipToggle: {fileID: 0}
   equipImage: {fileID: 0}
+  autoEquipMode: 0
+  autoEquipModeToggle: {fileID: 0}
   offSprite: {fileID: 21300000, guid: 624c643fe39787548bbc22334b67a99e, type: 3}
   onSprite: {fileID: 21300000, guid: d72fb88f680317e458765012509f4e8f, type: 3}
   inGameUICanvas: {fileID: 0}
+  loadingScreen: {fileID: 0}
 --- !u!114 &3480950737057686395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9370751a14d044940856878ffc69d446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: bb3ce77f58c0bb648a6409aac41ab694, type: 2}
   data: {fileID: 11400000, guid: 1933ffd4878564c4cae88864c2f515b3, type: 2}
   inventory:
   - {fileID: 0}
@@ -112,9 +116,16 @@ MonoBehaviour:
   - {fileID: 0}
   selectedSlot: {fileID: 0}
   playerInteractor: {fileID: 0}
+  itemName: {fileID: 0}
+  itemDescription: {fileID: 0}
+  itemType: {fileID: 0}
+  itemValue: {fileID: 0}
+  itemRating: {fileID: 0}
+  itemStaminaValue: {fileID: 0}
   equipButton: {fileID: 0}
   unEquipButton: {fileID: 0}
   dropButton: {fileID: 0}
+  eatButton: {fileID: 0}
 --- !u!114 &1479690184440020114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,11 +139,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recipesList:
+  - {fileID: 11400000, guid: befb4b056ee94d340b2b45e7b391f322, type: 2}
+  - {fileID: 11400000, guid: 09aba1699f4a63042bd969c3caab07f1, type: 2}
+  - {fileID: 11400000, guid: 05ca3004dba0b9c4dbaa5256447d9008, type: 2}
+  - {fileID: 11400000, guid: e8d73632c59b1b54ba2b03b5d78ba279, type: 2}
   - {fileID: 11400000, guid: 8f1f96cf1862d764d9de7dfaefa3ab18, type: 2}
+  - {fileID: 11400000, guid: 494741c1cc0b2e946914ed446fd381b8, type: 2}
   - {fileID: 11400000, guid: 36ef1931c6a1e384699b5d37b1b9f92e, type: 2}
+  - {fileID: 11400000, guid: c41422ffbdfc70a46aa1cde95568fab6, type: 2}
   craftSlot:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   resultCraftSlot: {fileID: 0}
+  recipeCard: {fileID: 8353197013204354831, guid: d06685a6ebbd68246946273c0db00089, type: 3}
+  recipeManager: {fileID: 0}

@@ -10,7 +10,7 @@ public class Rock : MonoBehaviour
 
     void Start()
     {
-      
+
     }
 
     // Update is called once per frame
@@ -18,24 +18,44 @@ public class Rock : MonoBehaviour
     {
       
     }
-    
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
         
-        if (other.gameObject.CompareTag("StairsUp") || other.gameObject.CompareTag("Player"))
+        if (collision.collider.gameObject.CompareTag("StairsUp"))// other.gameObject.CompareTag("Player")
         {
             EventsManager.GroundObjectRemoved(this.gameObject);
 
         }
-        if (other.gameObject.CompareTag("StairsDown"))
+        if (collision.gameObject.CompareTag("StairsDown"))
         {
-            stairsD = other.gameObject;
-            stairsD.GetComponent<StairsDown>().active = false;
+            // stairsD = other.gameObject.transform.parent.gameObject;
+            stairsD = collision.collider.gameObject;
             stairsD.SetActive(false);
-            
+
+
 
         }
     }
+
+
+    //private void OnTriggerStay(Collider other)
+    //{
+
+    //    if (other.gameObject.CompareTag("StairsUp"))// other.gameObject.CompareTag("Player")
+    //    {
+    //        EventsManager.GroundObjectRemoved(this.gameObject);
+    //        Debug.Log("U");
+    //    }
+    //    if (other.gameObject.CompareTag("StairsDown"))
+    //    {
+    //        // stairsD = other.gameObject.transform.parent.gameObject;
+    //        stairsD = other.gameObject;
+    //        stairsD.SetActive(false);
+    //        Debug.Log("D off");
+
+
+    //    }
+    //}
     public void RockDestroyed()
     {
         if (stairsD != null)
@@ -43,9 +63,10 @@ public class Rock : MonoBehaviour
             if (gameObject.transform.position.x == stairsD.transform.position.x && gameObject.transform.position.z == stairsD.transform.position.z)
             {
                 stairsD.SetActive(true);
-                stairsD.GetComponent<StairsDown>().active = true;
+                //stairsD.GetComponent<StairsDown>().active = true;
                 stairsD = null;
                 Destroy(this.gameObject);
+               
                 return;
             }
         }

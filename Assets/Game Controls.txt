@@ -1,0 +1,7 @@
+Controls:
+-Up & Down to move about
+-Left & Right to rotate
+-Spacebar to interact allowing you to breaking rocks, collect ore and floor progression
+-Interact with ladders to go down or upstairs
+-Enabling the Diamond shaped AutoEquip Mode accessibility feature allows you to play without needing to manually change equipment and focus on exploring.
+-Enabling Zen Mode allows you to play a more relaxed game without worrying about stamina.

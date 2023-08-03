@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d36e12fe3a2a884da89e90472267d04, type: 3}
-  m_Name: Silver bar
+  m_Name: Silver Bar
   m_EditorClassIdentifier: 
   item:
   - {fileID: 11400000, guid: 0f1fbcd38a3344e449cc3bad279d3497, type: 2}
   - {fileID: 11400000, guid: 0d6ec6a7702a0ec40837049c39004dcf, type: 2}
-  amountNeeded: 0200000005000000
+  amountNeeded: 0300000005000000
   craftItem: {fileID: 11400000, guid: 3a903699dc3e0a1448748300b81ec5b6, type: 2}
   craftAmount: 1

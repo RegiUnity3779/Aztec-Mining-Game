@@ -13,6 +13,7 @@ public class EquipedItem : MonoBehaviour
         EventsManager.EquipableItem += EquipableItem;
         EventsManager.EquipItem += ItemEquiped;
         EventsManager.UnEquipItem += ItemUnEquiped;
+        EventsManager.RemoveEquipableItem += RemoveEquipableItem;
     }
 
     private void OnDisable()
@@ -20,6 +21,7 @@ public class EquipedItem : MonoBehaviour
         EventsManager.EquipableItem -= EquipableItem;
         EventsManager.EquipItem -= ItemEquiped;
         EventsManager.UnEquipItem -= ItemUnEquiped;
+        EventsManager.RemoveEquipableItem -= RemoveEquipableItem;
     }
 
 
@@ -36,9 +38,13 @@ public class EquipedItem : MonoBehaviour
 
     public void EquipableItem (ItemData data)
     {
-        item = data;
-        
+        if (data != null)
+        {
+            item = data;
+        }
+
     }
+
      void ItemEquiped()
     {
         
@@ -76,5 +82,19 @@ public class EquipedItem : MonoBehaviour
             EventsManager.UnEquipButton(false);
             EventsManager.EquipToggle(itemEquiped, item);
         }
+
+    }
+    void RemoveEquipableItem()
+    {
+        if(itemEquiped == true)
+        {
+            Destroy(equipedObject);
+            itemEquiped = false;
+        }
+        item = null;
+        EventsManager.EquipButton(false);
+        EventsManager.UnEquipButton(false);
+        EventsManager.EquipToggle(itemEquiped, null);
+
     }
 }

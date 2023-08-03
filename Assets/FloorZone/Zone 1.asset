@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18cce1cfbcc55247853d8ebb99be386, type: 3}
+  m_Name: Zone 1
+  m_EditorClassIdentifier: 
+  mapSizeXMinAndMax: 080000000f000000
+  mapSizeZMinAndMax: 080000000f000000
+  groundTiles:
+  - {fileID: 1602053430519414231, guid: 415a50c3f8398724484378e7a973515c, type: 3}
+  - {fileID: 1602053430519414231, guid: 75fae336edbd96d4791263a3e1e53677, type: 3}
+  - {fileID: 1602053430519414231, guid: 082935fd9706a8b4a9bdfd06c85ccbe6, type: 3}
+  groundObject:
+  - {fileID: 4481957338322372369, guid: 58588e5d2f049a64b9dcadb9cb4eb464, type: 3}
+  - {fileID: 1052435826473207303, guid: c721ed175d9e42d4da9bdd3d15ca11b8, type: 3}
+  - {fileID: 8226342616930967608, guid: de3efa71b0f23614b956690453ec5ffa, type: 3}
+  groundTilesProbability: 0f00000055000000
+  landTilesProbability: 5a0000000a000000
+  groundObjectSpawning: 25
+  groundObjectProbability: 500000002800000005000000

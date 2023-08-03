@@ -19,7 +19,8 @@ MonoBehaviour:
   itemDescription: A torch made from wood
   type: 1
   equipment: 2
-  rating: 4
+  rating: 0
   value: 0
   canStack: 0
   maxStackAmount: 0
+  staminaValue: 0

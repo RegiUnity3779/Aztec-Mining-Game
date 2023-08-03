@@ -19,7 +19,8 @@ MonoBehaviour:
   itemDescription: A metal bar forged from copper
   type: 0
   equipment: 0
-  rating: 3
+  rating: 1
   value: 60
   canStack: 1
   maxStackAmount: 99
+  staminaValue: 0

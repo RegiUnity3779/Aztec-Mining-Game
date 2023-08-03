@@ -7,27 +7,40 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
     public GameObject[] floorLevel;
-    public bool autoEquipMode;
-    private int autoEquipModeStaminaPenalty = 1;
-    private int staminaCost = 2;
-    private float staminaPercentage;
-    public int staminaCurrent;
-    public int staminaMax;
-    public Image staminaBar;
-    public TextMeshProUGUI staminaBarText;
     public TextMeshProUGUI floorLevelText;
 
+    private int staminaCost = 2;
+    
+    public int staminaCurrent;
+    public int staminaMax;
+    private float staminaPercentage;
+    public Image staminaBar;
+    public TextMeshProUGUI staminaBarText;
+
     public bool zenMode = false;
+    public Toggle zenModeToggle;
+    
     public Toggle equipToggle;
     public Image equipImage;
+
+    public bool autoEquipMode;
+    public Toggle autoEquipModeToggle;
+    private int autoEquipModeStaminaPenalty = 1;
+
     public Sprite offSprite;
     public Sprite onSprite;
-    public  GameObject inGameUICanvas;
-    private static GameObject inGameUIInstance;
-   private static GameObject instance;
-    //public FloorManager floorManager;
 
+    public  GameObject inGameUICanvas;
+    public static GameObject inGameUIInstance;
+    public static GameObject instance;
+    public static GameObject playerInstance;
+    public static GameObject cameraInstance;
+
+
+    public GameObject loadingScreen;
+    //public Image loadingImage;
 
     private void OnEnable()
     {
@@ -37,6 +50,11 @@ public class GameManager : MonoBehaviour
         EventsManager.FloorChange += FloorChange;
         EventsManager.SceneChange += SceneChange;
         EventsManager.UnderGroundCheck += IsUnderGround;
+        EventsManager.EatConsumerable += EatConsumerable;
+        EventsManager.StaminaRestored += StaminaRestored;
+        
+
+
     }
 
     private void OnDisable()
@@ -47,6 +65,9 @@ public class GameManager : MonoBehaviour
         EventsManager.FloorChange -= FloorChange;
         EventsManager.SceneChange -= SceneChange;
         EventsManager.UnderGroundCheck -= IsUnderGround;
+        EventsManager.EatConsumerable -= EatConsumerable;
+        EventsManager.StaminaRestored -= StaminaRestored;
+
     }
 
     // Start is called before the first frame update
@@ -54,33 +75,21 @@ public class GameManager : MonoBehaviour
     {
 
 
-        DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(inGameUICanvas);
-        
         if (instance == null)
         {
             instance = this.gameObject;
-            
+            DontDestroyOnLoad(this);
         }
         else
         {
             Destroy(this.gameObject);
+            return;
         }
 
-
-        if (inGameUIInstance == null)
+        if (SceneManager.GetActiveScene().name != "EntranceFloor")
         {
-            inGameUIInstance = inGameUICanvas.gameObject;
-
-
+            SceneChange("EntranceFloor");
         }
-        
-        else
-        {
-            Destroy(inGameUICanvas.gameObject);
-        }
-        
-        SceneChange("EntranceFloor");
         EquipToggle(false, null);
         StaminaBar();
         FloorChange(0);
@@ -99,6 +108,11 @@ public class GameManager : MonoBehaviour
    public void UnEquipButton()
     {
         EventsManager.UnEquipItem();
+    }
+
+    public void EatButton()
+    {
+        EventsManager.EatButton();
     }
 
     public void EquipToggleButton()
@@ -155,8 +169,21 @@ public class GameManager : MonoBehaviour
             if (staminaCurrent <= 0)
             {
                 staminaCurrent = 0;
+                EventsManager.Fainted();
                 Debug.Log("Fainted");
             }
+
+            StaminaBar();
+        }
+
+    }
+
+    public void StaminaRestored()
+    {
+        if (!zenMode)
+        {
+
+            staminaCurrent = staminaMax;
 
             StaminaBar();
         }
@@ -187,13 +214,14 @@ public class GameManager : MonoBehaviour
 
         if (floor == 0)
         {
-            floorLevelText.gameObject.SetActive(false);
+            floorLevelText.transform.parent.gameObject.SetActive(false);
+            floorLevelText.text = "Floor: Entrance";
         }
 
         else
         {   
-            floorLevelText.text = $"Floor {floor}";
-            floorLevelText.gameObject.SetActive(true);
+            floorLevelText.text = $"Floor: {floor}";
+            floorLevelText.transform.parent.gameObject.SetActive(true);
         }
     }
 
@@ -202,8 +230,11 @@ public class GameManager : MonoBehaviour
         
         if(SceneManager.GetActiveScene().name != name)
         {
+            //StartCoroutine(LoadingSceneScreen());
             SceneManager.LoadScene(name);
+            
         }
+
     }
     private void GoDownStairs()
     {
@@ -218,16 +249,72 @@ public class GameManager : MonoBehaviour
             {
                 EventsManager.IsUnderGround(true);
             }
-
         }
         else
         {
             if (gameObject.GetComponent<Inventory>().playerInteractor != null)
             {
                 EventsManager.IsUnderGround(false);
+
             }
-            
+        }
+    }
+
+    public void EatConsumerable(int i)
+    {
+        if (!zenMode)
+        {
+            if (staminaCurrent == staminaMax)
+            {
+                staminaCurrent -= i;
+            }
+            else
+            {
+                staminaCurrent += i;
+                if (staminaCurrent > staminaMax)
+                {
+                    staminaCurrent = staminaMax;
+                }
+            }
+
+            StaminaBar();
+        }
+    }
+  
+
+    public void AutoEquipMode()
+    {
+        autoEquipMode = autoEquipModeToggle.isOn;
+        if (autoEquipMode)
+        {
+            autoEquipModeToggle.image.sprite = onSprite;
+        }
+        else
+        {
+            autoEquipModeToggle.image.sprite = offSprite;
+        }
+
+    }
+
+    public void ZenMode()
+    {
+        zenMode = zenModeToggle.isOn;
+        if (zenMode)
+        {
+            zenModeToggle.image.sprite = onSprite;
 
         }
+        else
+        {
+            zenModeToggle.image.sprite = offSprite;
+        }
+        StaminaBar();
+    }
+
+    public IEnumerator LoadingSceneScreen()
+    {
+        loadingScreen.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        loadingScreen.SetActive(false);
     }
 }
