@@ -7,7 +7,6 @@ public class CraftManager : MonoBehaviour
 
     public List<CraftRecipe> recipesList = new List<CraftRecipe>();
     private List<bool> currentCriteria = new List<bool>();
-    Inventory inventory;
     public Slot[] craftSlot;
     private CraftRecipe craftRecipe;
     public Slot resultCraftSlot;
@@ -28,7 +27,7 @@ public class CraftManager : MonoBehaviour
 
         for(int i = 0; i < recipesList.Count; i++)
         {
-            GameObject card = Instantiate(recipeCard, new Vector2(recipeManager.transform.position.x, recipeManager.transform.position.y), Quaternion.identity);
+            GameObject card = Instantiate(recipeCard, new Vector3(recipeManager.transform.position.x, recipeManager.transform.position.y,recipeManager.transform.position.z), Quaternion.identity);
             card.transform.SetParent(recipeManager.transform);
             card.GetComponent<RecipeCard>().recipe = recipesList[i];
         }

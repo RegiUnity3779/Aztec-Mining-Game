@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d36e12fe3a2a884da89e90472267d04, type: 3}
-  m_Name: Copper Pickaxe 1
+  m_Name: Copper Torch
   m_EditorClassIdentifier: 
   item:
-  - {fileID: 11400000, guid: 47daa35a8fab08545bde30652cd4fce1, type: 2}
-  - {fileID: 11400000, guid: 4d0be3ce70cc3e94fbe619b31ffd1645, type: 2}
+  - {fileID: 11400000, guid: 298e4a08c9211f74ab547609776639a4, type: 2}
+  - {fileID: 11400000, guid: 24f0e2e4e45de4c488fdd70593abd3b5, type: 2}
   amountNeeded: 0100000003000000
-  craftItem: {fileID: 11400000, guid: 3f861482a0a62ed4780059f29122ddbe, type: 2}
+  craftItem: {fileID: 11400000, guid: da24453517e70dc4cb527c4f65d521b2, type: 2}
   craftAmount: 1

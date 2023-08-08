@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a75530322ca7e2b4f8e9f587797a9cf3, type: 3}
   m_Name: Silver Ore
   m_EditorClassIdentifier: 
+  indexNumber: 0
   itemObject: {fileID: 4217142573535559927, guid: ef02a8dca6dea414bacf07b6fd971760, type: 3}
   equipObject: {fileID: 0}
   itemSprite: {fileID: 21300000, guid: e24f9250971e2b04783b4538d29da54d, type: 3}
@@ -23,3 +24,4 @@ MonoBehaviour:
   value: 40
   canStack: 1
   maxStackAmount: 99
+  staminaValue: 0

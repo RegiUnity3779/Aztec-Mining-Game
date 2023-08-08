@@ -230,7 +230,7 @@ public class GameManager : MonoBehaviour
         
         if(SceneManager.GetActiveScene().name != name)
         {
-            //StartCoroutine(LoadingSceneScreen());
+            StartCoroutine(LoadingSceneScreen());
             SceneManager.LoadScene(name);
             
         }

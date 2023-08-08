@@ -68,6 +68,8 @@ public class Inventory : MonoBehaviour
             DropItem(item);
             return;
         }
+
+        // check the whole inventory for item
         for (int i = 0; i < data.inventory.Count; i++)
         {
            
@@ -78,19 +80,27 @@ public class Inventory : MonoBehaviour
                 InventoryUpdate();
                 return;
             }
+  
+        }
+
+        // search inventory for a clear space and add item
+        for (int i = 0; i < data.inventory.Count; i++)
+        {
+
             if (!data.inventory[i].item)
-         {
-                
+            {
+
 
                 data.inventory[i].item = item;
                 data.inventory[i].amount++;
                 data.inventory[i].hasItem = true;
                 InventoryUpdate();
-                   return;
-         
-         }
-            
+                return;
+
+            }
+
         }
+      
 
     }
 
@@ -137,29 +147,29 @@ public class Inventory : MonoBehaviour
     public void DropItem()
     {
         
-            for(int i = 0; i <inventory.Length; i++)
+            for(int i = 0; i <data.inventory.Count; i++)
             {
-                if(inventory[i] == selectedSlot)
-                {
+                
 
-                if(data.inventory[i].hasItem == false)
+                if(data.inventory[i].hasItem == true)
                 {
+                if (data.inventory[i].item == selectedSlot.slotItem)
+                {
+            
+                    DropItem(data.inventory[i].item);
+                    data.inventory[i].amount--;
+                    if (data.inventory[i].amount <= 0)
+                    {
+                        data.inventory[i].item = null;
+                        data.inventory[i].hasItem = false;
+
+                    }
+                    InventoryUpdate();
+                    SlotSelected(inventory[i]);
                     return;
                 }
-
-                data.inventory[i].amount--;
-                Instantiate(selectedSlot.slotItem.itemObject, playerInteractor.transform.position, Quaternion.identity);
-                if (data.inventory[i].amount <= 0)
-                    {
-                    data.inventory[i].item = null;
-                    data.inventory[i].hasItem = false;
-                    
-                    }
-                InventoryUpdate();
-                SlotSelected(inventory[i]);
-                UpdateInventoryText();
-                return;
                 }
+
             }
 
     }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a75530322ca7e2b4f8e9f587797a9cf3, type: 3}
   m_Name: Copper Ore
   m_EditorClassIdentifier: 
+  indexNumber: 0
   itemObject: {fileID: 1281334635078032186, guid: 443c6dfe59ece30419ae403e4e15dd3f, type: 3}
   equipObject: {fileID: 0}
   itemSprite: {fileID: 21300000, guid: e05a637df88e7294b98ad66185feff07, type: 3}

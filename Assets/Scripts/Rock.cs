@@ -96,7 +96,7 @@ public class Rock : MonoBehaviour
             a -= type.spawnProability[i];
             if(a <= 0)
             {
-                Instantiate(type.spawnItem[i].gameObject, transform.position, Quaternion.identity);
+                Instantiate(type.spawnItem[i].gameObject, new Vector3(transform.position.x, (transform.position.y + (gameObject.transform.localScale.y/2)), transform.position.z), Quaternion.identity);
                 
                
                 return;

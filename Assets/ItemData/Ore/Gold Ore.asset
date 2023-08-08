@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a75530322ca7e2b4f8e9f587797a9cf3, type: 3}
   m_Name: Gold Ore
   m_EditorClassIdentifier: 
+  indexNumber: 0
   itemObject: {fileID: 1793560128428210935, guid: 4a223d35eb5544a4d9274a7e35bd833e, type: 3}
   equipObject: {fileID: 0}
   itemSprite: {fileID: 21300000, guid: 242af55593ff25d40936481ff14350f0, type: 3}
